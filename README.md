@@ -244,10 +244,14 @@ Para garantizar que la calculadora sea fiable y segura, se han definido los sigu
 <summary><b>Pruebas de Clasificación del Estado de Salud basado en el IMC/BMI</b></summary>
 Para cada categoría, probamos valores que están justo en el límite para asegurar que el cambio de etiqueta es exacto:  
 
-* **Peso bajo (Underweight):** Se comprueba con valores por debajo de 18.5.
-* **Peso normal (Normal weight):** Se comprueba con valores desde 18.5 hasta justo antes de 25.
+* **Delgadez severa (Severe Thinness):** Se comprueba con valores por debajo de 16.
+* **Delgadez moderada (Moderate Thinness):** Se comprueba con valores desde 16 hasta justo antes de 17.
+* **Delgadez leve (Mild Thinness):** Se comprueba con valores desde 17 hasta justo antes de 18.5.
+* **Peso normal (Normal):** Se comprueba con valores desde 18.5 hasta justo antes de 25.
 * **Sobrepeso (Overweight):** Se comprueba con valores desde 25 hasta justo antes de 30.
-* **Obesidad (Obesity):** Se comprueba con valores desde 30 en adelante.
+* **Obesidad Clase I (Obese Class I):** Se comprueba con valores desde 30 hasta justo antes de 35.
+* **Obesidad Clase II (Obese Class II):** Se comprueba con valores desde 35 hasta justo antes de 40.
+* **Obesidad Clase III (Obese Class III):** Se comprueba con valores desde 40 en adelante.
 * **Seguridad:** Se rechazan clasificaciones para resultados de IMC negativos o absurdamente altos (más de 150).
 
 </details>
