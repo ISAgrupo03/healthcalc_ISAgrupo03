@@ -46,5 +46,37 @@ public class HealthCalcImpl implements HealthCalc {
         }
         return weight / Math.pow(height, 2);
     }
-    
+
+    @Override
+    public double harrisBenedict(double weight, double height, char gender, int age) throws InvalidHealthDataException {
+        if (gender != 'M' && gender != 'W') {
+            throw new InvalidHealthDataException("Gender must be 'M' or 'W'.");
+        }
+        if (weight <= 0) {
+            throw new InvalidHealthDataException("Weight must be positive.");
+        }
+        if (height <= 0) {
+            throw new InvalidHealthDataException("Height must be positive.");
+        }
+        if (age < 0) {
+            throw new InvalidHealthDataException("Age cannot be negative.");
+        }
+        if (weight < 1 || weight > 700) {
+            throw new InvalidHealthDataException("Weight must be within a possible biological range, this is, between 1 and 700 kg.");
+        }
+        if (height < 30 || height > 300) {
+            throw new InvalidHealthDataException("Height must be within a possible biological range, this is, between 30 and 300 cm.");
+        }
+        if (age > 120) {
+            throw new InvalidHealthDataException("Age must be within a possible biological range, this is, between 0 and 120 years.");
+        }
+
+        double bmr = 0.0;
+        if (gender == 'M') {
+            bmr = 88.362 + (13.397*weight) + (4.799*height) - (5.677*age);
+        } else { // If the program gets here, it's necessarily 'W' due to the initial exception check.
+            bmr = 447.593 + (9.247*weight) + (3.098*height) - (4.330*age);
+        }
+        return bmr;
+    }
 }
