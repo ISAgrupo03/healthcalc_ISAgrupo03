@@ -66,13 +66,13 @@ public class HarrisBenedictTest {
 
         @Test
         @DisplayName("Lanzar excepción cuando el sexo es inválido")
-        void testSexoInvalido() {
+        void testHarrisBenedictSexoInvalido() {
             assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(70.0, 175.0, 'X', 25));
         }
 
         @Test
         @DisplayName("Lanzar excepción cuando las variables son cero")
-        void testVariablesCero() {
+        void testHarrisBenedictVariablesCero() {
             assertAll(
                 () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(0, 175.0, 'M', 25)),
                 () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(70.0, 0, 'M', 25))
@@ -82,7 +82,7 @@ public class HarrisBenedictTest {
 
         @Test
         @DisplayName("Lanzar excepción cuando los valores son negativos")
-        void testNegativos() {
+        void testHarrisBenedictNegativos() {
             assertAll(
                 () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(-70.0, 175.0, 'M', 25)),
                 () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(70.0, -175.0, 'M', 25)),
@@ -93,35 +93,35 @@ public class HarrisBenedictTest {
         @ParameterizedTest(name = "Peso mínimo inválido: {0} kg")
         @ValueSource(doubles = {0.99, 0.50})
         @DisplayName("Bloqueo de pesos inferiores al límite biológico mínimo (1 kg)")
-        void testPesoMinimoImposible(double weight) {
+        void testHarrisBenedictPesoMinimoImposible(double weight) {
             assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(weight, 175.0, 'M', 25));
         }
 
         @ParameterizedTest(name = "Peso máximo inválido: {0} kg")
         @ValueSource(doubles = {700.1, 1000.0, 5000.0})
         @DisplayName("Bloqueo de pesos superiores al límite biológico máximo (700 kg)")
-        void testPesoMaximoImposible(double weight) {
+        void testHarrisBenedictPesoMaximoImposible(double weight) {
             assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(weight, 175.0, 'M', 25));
         }
 
         @ParameterizedTest(name = "Altura mínima inválida: {0} cm")
         @ValueSource(doubles = {29.9, 15.0})
         @DisplayName("Bloqueo de alturas inferiores al límite biológico mínimo (30 cm)")
-        void testAlturaMinimaImposible(double height) {
+        void testHarrisBenedictAlturaMinimaImposible(double height) {
             assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(70.0, height, 'M', 25));
         }
 
         @ParameterizedTest(name = "Altura máxima inválida: {0} cm")
         @ValueSource(doubles = {300.1, 350.0, 500.0})
         @DisplayName("Bloqueo de alturas superiores al límite biológico máximo (300 cm)")
-        void testAlturaMaximoImposible(double height) {
+        void testHarrisBenedictAlturaMaximaImposible(double height) {
             assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(70.0, height, 'M', 25));
         }
 
         @ParameterizedTest(name = "Edad máxima inválida: {0} años")
         @ValueSource(ints = {121, 150, 200})
         @DisplayName("Bloqueo de edades superiores al límite biológico máximo (120 años)")
-        void testEdadMaximaImposible(int age) {
+        void testHarrisBenedictEdadMaximaImposible(int age) {
             assertThrows(InvalidHealthDataException.class, () -> healthCalc.harrisBenedict(70.0, 175.0, 'M', age));
         }
     }
