@@ -244,14 +244,40 @@ Para garantizar que la calculadora sea fiable y segura, se han definido los sigu
 <summary><b>Pruebas de Clasificación del Estado de Salud basado en el IMC/BMI</b></summary>
 Para cada categoría, probamos valores que están justo en el límite para asegurar que el cambio de etiqueta es exacto:  
 
-* **Peso bajo (Underweight):** Se comprueba con valores por debajo de 18.5.
-* **Peso normal (Normal weight):** Se comprueba con valores desde 18.5 hasta justo antes de 25.
+* **Delgadez severa (Severe Thinness):** Se comprueba con valores por debajo de 16.
+* **Delgadez moderada (Moderate Thinness):** Se comprueba con valores desde 16 hasta justo antes de 17.
+* **Delgadez leve (Mild Thinness):** Se comprueba con valores desde 17 hasta justo antes de 18.5.
+* **Peso normal (Normal):** Se comprueba con valores desde 18.5 hasta justo antes de 25.
 * **Sobrepeso (Overweight):** Se comprueba con valores desde 25 hasta justo antes de 30.
-* **Obesidad (Obesity):** Se comprueba con valores desde 30 en adelante.
+* **Obesidad Clase I (Obese Class I):** Se comprueba con valores desde 30 hasta justo antes de 35.
+* **Obesidad Clase II (Obese Class II):** Se comprueba con valores desde 35 hasta justo antes de 40.
+* **Obesidad Clase III (Obese Class III):** Se comprueba con valores desde 40 en adelante.
 * **Seguridad:** Se rechazan clasificaciones para resultados de IMC negativos o absurdamente altos (más de 150).
 
 </details>
 
+<details>
+<summary><b>Pruebas de la BMR (métrica Harris-Benedict)</b></summary>
+
+* **Cálculo correcto para hombres:** Se comprueba que, al introducir peso, altura y edad válidos para un hombre, el resultado coincida con la fórmula de Harris-Benedict.
+* **Cálculo correcto para mujeres:** Se comprueba que, al introducir peso, altura y edad válidos para una mujer, el resultado coincida con la fórmula de Harris-Benedict.
+* **Protección ante género inválido:** Se debe lanzar un error con géneros distintos a 'M' o 'W'.
+* **Protección ante datos imposibles:**
+    * Se debe rechazar edades negativas o superior al límite razonable (por ejemplo más de 120 años).
+    * Se debe rechazar pesos fuera de un rango razonable (menores a 1 kg o mayores a 700 kg).
+    * Se debe rechazar alturas fuera de un rango razonable (menores a 30 cm o mayores a 300 cm).
+
+</details>
+
+<details>
+<summary><b>Pruebas de Cálculo del Peso Corporal Ideal (IBW) - Lorentz</b></summary>
+
+* **Cálculo correcto (Hombres):** Se comprueba que, al introducir una altura normal (ej. 170 cm o 180 cm), el resultado coincida con la fórmula de Lorentz para hombres.
+* **Cálculo correcto (Mujeres):** Se comprueba que, al introducir una altura normal (ej. 160 cm o 170 cm), el resultado coincida con la fórmula de Lorentz para mujeres.
+* **Protección ante género inválido:** El sistema debe rechazar cualquier carácter que no sea 'M' (Hombre) o 'W' (Mujer), lanzando una excepción.
+* **Protección ante datos imposibles:** El sistema debe rechazar alturas menores a 30 cm o mayores a 300 cm (límites biológicos), al igual que valores negativos o cero, lanzando una excepción.
+
+</details>
 
 ## Instalación y ejecución
 
