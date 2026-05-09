@@ -1,0 +1,152 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="0Y8kpqXo_ckL2BsRZgqd">
+    <mxGraphModel dx="1471" dy="753" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="HealthCalcImpl" vertex="1">
+          <mxGeometry height="240" width="460" x="610" y="320" as="geometry">
+            <mxRectangle height="30" width="120" x="250" y="420" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-2" parent="1S1i0DNA9Au6piKbOnTZ-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;u&gt;- instance: HealthCalcImpl&lt;/u&gt;" vertex="1">
+          <mxGeometry height="26" width="460" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-3" parent="1S1i0DNA9Au6piKbOnTZ-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="460" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-4" parent="1S1i0DNA9Au6piKbOnTZ-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- HealthCalcImpl()&lt;div&gt;&lt;u&gt;&lt;br&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;&quot;&gt;+ bmiClassification(bmi: double):&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ bmi(weight: double, height: double): double&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;span style=&quot;&quot;&gt;+ idealBodyWeight(height: double, gender: char): double&lt;/span&gt;&lt;div style=&quot;&quot;&gt;&lt;br&gt;&lt;div&gt;+ harrisBenedict(weight:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;double&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;, height: double, gender: char, age: int): double&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ getInstance(): HealthCalcImpl&lt;/u&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="460" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-5" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;HealthCalc&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;div&gt;&amp;nbsp;+ bmiClassification(bmi: double):&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&amp;nbsp;+ bmi(weight: double, height: double): double&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;+ idealBodyWeight(height: double, gender: char): double&lt;/p&gt;&lt;div&gt;&lt;br&gt;&lt;div&gt;&amp;nbsp;+ harrisBenedict(weight:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;double&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;, height: double, gender: char, age: int): double&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="190" width="440" x="620" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-6" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-1" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="1S1i0DNA9Au6piKbOnTZ-5" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="910" y="280" as="sourcePoint" />
+            <mxPoint x="1070" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-7" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;align=left;" value="&lt;span class=&quot;hljs-keyword&quot;&gt;&amp;nbsp;if&lt;/span&gt; (instance == &lt;span class=&quot;hljs-keyword&quot;&gt;null&lt;/span&gt;) {&amp;nbsp;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp;instance = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; HealthCalcImpl();&lt;br&gt;&amp;nbsp;}&lt;br&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;&amp;nbsp;return&lt;/span&gt; instance;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100" width="240" x="610" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-8" edge="1" parent="1" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.207;entryY=1.001;entryDx=0;entryDy=0;entryPerimeter=0;" target="1S1i0DNA9Au6piKbOnTZ-4" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points" />
+            <mxPoint x="705" y="610" as="sourcePoint" />
+            <mxPoint x="679" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-10" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;font&gt;&lt;i style=&quot;&quot;&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b style=&quot;&quot;&gt;HealthHospital&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;+ indiceMasaCorporal(altura: float, peso: int): tuple&amp;lt;float, String&amp;gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;+ pesoCorporalIdeal(genero: char, altura: float): int&lt;/font&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="135" width="360" x="1200.5" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-11" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="AdapterHospital" vertex="1">
+          <mxGeometry height="180" width="380" x="1190.5" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-12" parent="1S1i0DNA9Au6piKbOnTZ-11" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="44" width="380" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-13" parent="1S1i0DNA9Au6piKbOnTZ-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ AdapterHospital(calc: HealthCalc)&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ indiceMasaCorporal(altura: float, peso: int): tuple&amp;lt;float, String&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ pesoCorporalIdeal(genero: char, altura: float): int&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="110" width="380" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-14" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-11" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="1S1i0DNA9Au6piKbOnTZ-10" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="1379.91" y="470" as="sourcePoint" />
+            <mxPoint x="1379.91" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-15" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-13" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.636;exitDx=0;exitDy=0;exitPerimeter=0;" target="1S1i0DNA9Au6piKbOnTZ-5" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="1190" y="837" as="sourcePoint" />
+            <mxPoint x="1070" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-16" connectable="0" parent="1S1i0DNA9Au6piKbOnTZ-15" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=13;" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;- &lt;/font&gt;calc" vertex="1">
+          <mxGeometry relative="1" x="0.0864" y="-4" as="geometry">
+            <mxPoint x="16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-27" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;font&gt;&lt;i style=&quot;&quot;&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b style=&quot;&quot;&gt;HealthStats&lt;/b&gt;&lt;/font&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;+ alturaMedia(): float&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;+ pesoMedio(): float&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;+ imcMedio(): float&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;+ numSexoH(): int&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;+ numSexoM(): int&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;&lt;br&gt;&lt;/font&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;font&gt;+ numTotalPacientes(): int&lt;/font&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="240" width="360" x="100" y="10" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-28" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="ProxyHealthCalc" vertex="1">
+          <mxGeometry height="470" width="436" x="54" y="360" as="geometry">
+            <mxRectangle height="30" width="120" x="250" y="420" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-29" parent="1S1i0DNA9Au6piKbOnTZ-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- alturas: List&amp;lt;Float&amp;gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- pesos: List&amp;lt;Float&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- generos: List&amp;lt;Character&amp;gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- imcs: List&amp;lt;Float&amp;gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="114" width="436" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-30" parent="1S1i0DNA9Au6piKbOnTZ-28" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="436" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-31" parent="1S1i0DNA9Au6piKbOnTZ-28" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ ProxyHealthCalc(calc: HealthCalc)&lt;br&gt;&lt;div&gt;&lt;u&gt;&lt;br&gt;&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;div style=&quot;&quot;&gt;&lt;div&gt;+ bmiClassification(bmi: double):&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;String&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;+ bmi(weight: double, height: double): double&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ idealBodyWeight(height: double, gender: char): double&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ harrisBenedict(weight:&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;double&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;, height: double, gender: char, age: int): double&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ alturaMedia(): float&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ pesoMedio(): float&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ imcMedio(): float&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ numSexoH(): int&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ numSexoM(): int&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ numTotalPacientes(): int&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="322" width="436" y="148" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-32" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-28" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;edgeStyle=orthogonalEdgeStyle;exitX=0.886;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" target="1S1i0DNA9Au6piKbOnTZ-5" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="290" />
+              <mxPoint x="840" y="290" />
+            </Array>
+            <mxPoint x="440" y="360" as="sourcePoint" />
+            <mxPoint x="650" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-33" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-28" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.48;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="1S1i0DNA9Au6piKbOnTZ-27" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="220" y="330" as="sourcePoint" />
+            <mxPoint x="272" y="249" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-34" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-5" style="endArrow=diamondThin;endFill=0;endSize=24;html=1;rounded=0;entryX=1;entryY=0.075;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.001;exitY=0.402;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;" target="1S1i0DNA9Au6piKbOnTZ-31" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="700" y="400" as="sourcePoint" />
+            <mxPoint x="860" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-35" connectable="0" parent="1S1i0DNA9Au6piKbOnTZ-34" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;-&lt;/font&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt; calc&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.0127" y="1" as="geometry">
+            <mxPoint x="-26" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-36" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;align=left;" value="&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;&amp;nbsp;public&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;bmi&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(&lt;span class=&quot;hljs-keyword&quot;&gt;double&lt;/span&gt; weight, &lt;span class=&quot;hljs-keyword&quot;&gt;double&lt;/span&gt; height)&lt;/span&gt; &lt;/span&gt;{&lt;br&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;pesos.add((&lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;)weight);&lt;br&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;alturas.add((&lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;)height);&lt;br&gt;    &lt;span class=&quot;hljs-keyword&quot;&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;double&lt;/span&gt; res = calc.bmi(weight, height);&lt;br&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;imcs.add((&lt;span class=&quot;hljs-keyword&quot;&gt;float&lt;/span&gt;)res);&lt;br&gt;    &lt;span class=&quot;hljs-keyword&quot;&gt;&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;return&lt;/span&gt; res;&lt;br&gt;&amp;nbsp;}" vertex="1">
+          <mxGeometry height="120" width="430" x="30" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-38" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-36" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.139;entryY=0.999;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.195;exitY=-0.007;exitDx=0;exitDy=0;exitPerimeter=0;" target="1S1i0DNA9Au6piKbOnTZ-31" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="120" y="900" as="sourcePoint" />
+            <mxPoint x="170" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-39" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;align=left;" value="&lt;div&gt;&amp;nbsp;public float imcMedio() {&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;if (imcs.isEmpty()) return 0f;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;float sum = 0;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;for(Float i : imcs) {&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;sum += i;&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt; }&lt;/div&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;return sum / imcs.size();&lt;/div&gt;&lt;div&gt;&amp;nbsp;}&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="360" x="520" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-40" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-39" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.778;entryY=0.998;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.222;exitY=0.009;exitDx=0;exitDy=0;exitPerimeter=0;edgeStyle=orthogonalEdgeStyle;" target="1S1i0DNA9Au6piKbOnTZ-31" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="550" y="880" as="sourcePoint" />
+            <mxPoint x="600" y="830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-41" parent="1" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;align=left;" value="&lt;div style=&quot;&quot;&gt;&amp;nbsp;HealthCalc baseCalc = HealthCalcImpl.getInstance();&lt;br&gt;&amp;nbsp;ProxyHealthCalc proxy = &lt;span class=&quot;hljs-keyword&quot;&gt;new&lt;/span&gt; ProxyHealthCalc(baseCalc);&lt;br&gt;&amp;nbsp;proxy.bmi(&lt;span class=&quot;hljs-number&quot;&gt;75.0&lt;/span&gt;, &lt;span class=&quot;hljs-number&quot;&gt;1.75&lt;/span&gt;);&lt;br&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;&amp;nbsp;float&lt;/span&gt; media = proxy.imcMedio();&lt;/div&gt;" vertex="1">
+          <mxGeometry height="80" width="361" x="1200" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-42" parent="1" style="html=1;whiteSpace=wrap;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Main&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="110" x="1218.68" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-43" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-42" style="endArrow=open;endFill=1;endSize=12;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.003;entryY=0.448;entryDx=0;entryDy=0;entryPerimeter=0;" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="1182.68" y="210" as="sourcePoint" />
+            <mxPoint x="1060.0000000000002" y="175.12" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1S1i0DNA9Au6piKbOnTZ-44" edge="1" parent="1" source="1S1i0DNA9Au6piKbOnTZ-41" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;rounded=0;entryX=0.361;entryY=-0.008;entryDx=0;entryDy=0;exitX=0.161;exitY=0.998;exitDx=0;exitDy=0;exitPerimeter=0;entryPerimeter=0;" target="1S1i0DNA9Au6piKbOnTZ-42" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="1274" y="104" as="sourcePoint" />
+            <mxPoint x="1259" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
