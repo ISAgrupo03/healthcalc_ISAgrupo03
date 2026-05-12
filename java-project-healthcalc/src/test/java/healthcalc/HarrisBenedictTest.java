@@ -28,7 +28,7 @@ public class HarrisBenedictTest {
 
     @BeforeEach
     void setup() {
-        healthCalc = new HealthCalcImpl();
+        healthCalc = HealthCalcImpl.getInstance();
     }
 
     @Nested

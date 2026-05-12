@@ -4,7 +4,7 @@ import healthcalc.exceptions.InvalidHealthDataException;
 
 public class Main {
     public static void main(String[] args) {
-        HealthCalc healthCalc = new HealthCalcImpl();
+        HealthCalc healthCalc = HealthCalcImpl.getInstance();
         
         try {
             double weight = 75.0; // kg
