@@ -33,5 +33,27 @@ public class Main {
         } catch (InvalidHealthDataException e) {
             System.err.println("Error: " + e.getMessage());
         }
+
+        System.out.println("\n");
+
+        System.out.println("PATRÓN ADAPTER");
+        HealthHospital hospitalCalc = new AdapterHospital(healthCalc);
+
+        try{
+            float alturaHospital =1.75f;
+            int pesoGramos = 75000; // 75kg
+            char generoHospital = 'M';
+
+            System.out.println("Paciente registrado: Altura=" + alturaHospital + "m, Peso=" + pesoGramos + "g, Género=" + generoHospital);  
+
+            Tuple<Float, String> bmiHospital = hospitalCalc.indiceMasaCorporal(alturaHospital, pesoGramos);
+            System.out.println("BMI Hospital: " + String.format("%.2f", bmiHospital.x) + " kg/m^2 - " + bmiHospital.y);
+
+            int ibwHospital = hospitalCalc.pesoCorporalIdeal(generoHospital, alturaHospital);
+            System.out.println("IBW Hospital: " + (ibwHospital) + " g");
+
+            } catch (Exception e) {
+            System.err.println("Error en el sistema del hospital: " + e.getMessage());
+            }
+        }
     }
-}
