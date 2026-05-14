@@ -30,32 +30,35 @@ public class ProxyHealthCalc implements HealthCalc, HealthStats {
     
     @Override
     public double bmi(double weight, double height) throws InvalidHealthDataException {
+        double res = calc.bmi(weight, height);
+
         pesos.add((float) weight);
         alturas.add((float) height);
         totalPacientes++;
-        
-        double res = calc.bmi(weight, height);
         imcs.add((float) res);
+
         return res;
     }
 
     @Override
     public double idealBodyWeight(double height, char gender) throws InvalidHealthDataException {
+        double res =  calc.idealBodyWeight(height, gender);
         alturas.add((float) (height / 100.0)); 
         generos.add(gender);
         totalPacientes++;
         
-        return calc.idealBodyWeight(height, gender);
+        return res;
     }
 
     @Override
     public double harrisBenedict(double weight, double height, char gender, int age) throws InvalidHealthDataException {
+        double res = calc.harrisBenedict(weight, height, gender, age);
         pesos.add((float) weight);
         alturas.add((float) (height / 100.0)); //en m
         generos.add(gender);
         totalPacientes++;
         
-        return calc.harrisBenedict(weight, height, gender, age);
+        return res;
     }
 
     @Override
