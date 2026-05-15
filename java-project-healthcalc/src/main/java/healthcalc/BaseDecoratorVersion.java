@@ -2,7 +2,7 @@ package healthcalc;
 
 public abstract class BaseDecoratorVersion implements HealthHospital {
     
-    protected HealthHospital hospitalCalc;
+    private HealthHospital hospitalCalc;
 
     public BaseDecoratorVersion(HealthHospital h) {
         this.hospitalCalc = h;
