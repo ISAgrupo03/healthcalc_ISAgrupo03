@@ -6,7 +6,9 @@ public class Main {
     public static void main(String[] args) {
         
         HealthCalc baseCalc = HealthCalcImpl.getInstance();
-        ProxyHealthCalc proxyCalc = new ProxyHealthCalc(baseCalc);
+        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(baseCalc);
+        HealthCalc calculadora = objetoProxy;   
+        HealthStats estadisticas = objetoProxy; 
         
         try {
             double weight = 75.0; 
@@ -16,16 +18,16 @@ public class Main {
             
             System.out.println("Data: Weight=" + weight +"kg, Height=" + height + "m, Gender=" + gender + ", Age=" + age + " years");
             
-            double bmiValue = proxyCalc.bmi(weight, height);
+            double bmiValue = calculadora.bmi(weight, height);
             System.out.println("BMI: " + String.format("%.2f", bmiValue));
             
-            String bmiClass = proxyCalc.bmiClassification(bmiValue);
+            String bmiClass = calculadora.bmiClassification(bmiValue);
             System.out.println("BMI classification: " + bmiClass);
             
-            double ibw = proxyCalc.idealBodyWeight(height*100, gender); 
+            double ibw = calculadora.idealBodyWeight(height*100, gender); 
             System.out.println("Ideal body weight (IBW): " + String.format("%.2f", ibw) + " kg");
             
-            double tmb = proxyCalc.harrisBenedict(weight, height*100, gender, age); 
+            double tmb = calculadora.harrisBenedict(weight, height*100, gender, age); 
             System.out.println("Basal metabolic rate (Harris-Benedict): " + String.format("%.2f", tmb) + " kcal/day");
             
         } catch (InvalidHealthDataException e) {
@@ -33,7 +35,7 @@ public class Main {
         }
         
         System.out.println("\nPATRÓN ADAPTER");
-        HealthHospital hospitalCalc = new AdapterHospital(proxyCalc);
+        HealthHospital hospitalCalc = new AdapterHospital(calculadora);
         
         try {
             float alturaHospital = 1.75f;
@@ -53,11 +55,11 @@ public class Main {
         }
 
         System.out.println("\nESTADÍSTICAS DEL PROXY");
-        System.out.println("Total pacientes: " + proxyCalc.numTotalPacientes());
-        System.out.println("Hombres: " + proxyCalc.numSexoH());
-        System.out.println("Mujeres: " + proxyCalc.numSexoM());
-        System.out.println("Peso medio: " + String.format("%.2f", proxyCalc.pesoMedio()) + " kg");
-        System.out.println("Altura media: " + String.format("%.2f", proxyCalc.alturaMedia()) + " cm");
-        System.out.println("IMC medio: " + String.format("%.2f", proxyCalc.imcMedio()));
+        System.out.println("Total pacientes: " + estadisticas.numTotalPacientes());
+        System.out.println("Hombres: " + estadisticas.numSexoH());
+        System.out.println("Mujeres: " + estadisticas.numSexoM());
+        System.out.println("Peso medio: " + String.format("%.2f", estadisticas.pesoMedio()) + " kg");
+        System.out.println("Altura media: " + String.format("%.2f", estadisticas.alturaMedia()) + " m");
+        System.out.println("IMC medio: " + String.format("%.2f", estadisticas.imcMedio()));
     }
 }
