@@ -361,7 +361,7 @@ Para probar la calculadora sin necesidad de abrir el entorno de desarrollo:
 ## Práctica 6: Patrones de diseño
 
 ### 1. Patrón Singleton 
-* **Problema:** Garantizar que la calculadora de salud no se instancie múltiples veces innecesariamente y compartiese un único estado global.
+* **Problema:** Garantizar que la calculadora de salud no se instancie múltiples veces innecesariamente y comparta un único estado global.
 * **Solución:** Se ha modificado `HealthCalcImpl` ocultando su constructor (`private`) y añadiendo un método de acceso global estático `getInstance()`. De esta forma, tanto el entorno de consola como la interfaz gráfica consumen exactamente la misma instancia única.
 * **Diagrama UML:**
   ![Diagrama UML - Singleton](design_patterns/01_Singleton_UML.png)
