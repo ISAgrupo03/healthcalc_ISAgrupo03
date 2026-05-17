@@ -357,3 +357,31 @@ Para probar la calculadora sin necesidad de abrir el entorno de desarrollo:
 ![Captura del funcionamiento de la pestaña de la TMB](doc/gui/captura_TMB_gui.png)
 
 </details>
+
+## Práctica 6: Patrones de diseño
+
+### 1. Patrón Singleton 
+* **Problema:** Garantizar que la calculadora de salud no se instancie múltiples veces innecesariamente y comparta un único estado global.
+* **Solución:** Se ha modificado `HealthCalcImpl` ocultando su constructor (`private`) y añadiendo un método de acceso global estático `getInstance()`. De esta forma, tanto el entorno de consola como la interfaz gráfica consumen exactamente la misma instancia única.
+* **Diagrama UML:**
+  ![Diagrama UML - Singleton](design_patterns/01_Singleton_UML.png)
+
+### 2. Patrón Adapter 
+* **Problema:** Integrar nuestra calculadora con la interfaz externa `HealthHospital` suministrada por el hospital Costa del Sol, la cual utiliza una firma distinta (devuelve tuplas) y unidades incompatibles con nuestra calculadora (altura en metros y peso en gramos).
+* **Solución:** Se ha creado la clase `AdapterHospital` que implementa `HealthHospital`. Esta actúa como "traductora", recibiendo los metros y gramos del hospital, transformándolos internamente a centímetros y kilogramos para invocar a nuestra calculadora, y empaquetando el resultado en un objeto genérico `Tuple`.
+* **Diagrama UML:**
+  ![Diagrama UML - Adapter](design_patterns/02_Adapter_UML.png)
+
+### 3. Patrón Proxy 
+* **Problema:** Llevar un registro e historial de uso clínico de forma anónima capturando los datos introducidos por los pacientes y calculando medias globales a través de la interfaz `HealthStats`, sin alterar el código de la calculadora original ni del adaptador del hospital.
+* **Solución:** Se ha diseñado un proxy de registro (`ProxyHealthCalc`) que implementa simultáneamente `HealthCalc` y `HealthStats`. El proxy se coloca de manera intermedia mediante una relación de agregación, intercepta silenciosamente las llamadas a los métodos de cálculo para almacenar las variables en listas locales y, posteriormente, delega el cálculo real en la instancia original.
+* **Diagrama UML:**
+  ![Diagrama UML - Proxy](design_patterns/03_Proxy_UML.png)
+
+### 4. Doble Patrón Decorator
+* **Problema:** Añadir dinámicamente y de forma encadenada nuevas responsabilidades a la plataforma del hospital (`HealthHospital`), permitiendo disponer de versiones con conversiones de unidades americanas (pies y libras) y europeas, combinadas de forma flexible con mensajes personalizados bilingües (inglés y español).
+* **Solución:** Siguiendo el esquema UML final, se ha implementado una estructura de doble Decorator heredando secuencialmente de la interfaz del hospital:
+  * **Decoradores de Versión (`BaseDecoratorVersion`, `AmericanDecorator`, `EuropeanDecorator`):** Interceptan los datos en formatos como pies y libras, los convierten al sistema métrico correspondiente y los envían hacia abajo en la cadena.
+  * **Decoradores de Idioma (`BaseDecoratorIdioma`, `SpanishDecorator`, `EnglishDecorator`):** Extienden las funcionalidades de salida formateando y traduciendo las respuestas de clasificación al idioma seleccionado.
+* **Diagrama UML combinado final:**
+  ![Diagrama UML - Decorator Completo](design_patterns/04_Decorator_UML.png)
