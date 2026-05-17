@@ -65,15 +65,15 @@ public class Main {
         System.out.println("\nPATRÓN DECORATOR");
         System.out.println("Americano + Inglés:");
         try {
-            HealthHospital verAmerican = new AmericanDecorator(hospitalCalc);
-            HealthHospital verEnglish = new EnglishDecorator(verAmerican);
+            HealthHospital verEnglish = new EnglishDecorator(hospitalCalc);
+            HealthHospital verAmerican = new AmericanDecorator(verEnglish);
             
             float alturaPies = 6.0f;
             int pesoLibras = 180;
             
             System.out.println("Paciente registrado: Altura=" + alturaPies + " pies, Peso=" + pesoLibras + " libras"); //americano
         
-            verEnglish.indiceMasaCorporal(alturaPies, pesoLibras);
+            verAmerican.indiceMasaCorporal(alturaPies, pesoLibras);
             
         } catch (Exception e) {
             System.err.println("Error en los decoradores: " + e.getMessage());
@@ -81,15 +81,15 @@ public class Main {
 
         System.out.println("\nEuropeo + Español:"); 
         try {
-            HealthHospital verEuropean = new EuropeanDecorator(hospitalCalc);
-            HealthHospital verSpanish = new SpanishDecorator(verEuropean);
-          
+            HealthHospital verSpanish = new SpanishDecorator(hospitalCalc);
+            HealthHospital verEuropean = new EuropeanDecorator(verSpanish);
+              
             float alturaMetros = 1.75f;
             int pesoGramos = 75000;
             
             System.out.println("Paciente registrado: Altura=" + alturaMetros + " m, Peso=" + pesoGramos + " g");
         
-            verSpanish.indiceMasaCorporal(alturaMetros, pesoGramos);
+            verEuropean.indiceMasaCorporal(alturaMetros, pesoGramos);
             
         } catch (Exception e) {
             System.err.println("Error en los decoradores: " + e.getMessage());
