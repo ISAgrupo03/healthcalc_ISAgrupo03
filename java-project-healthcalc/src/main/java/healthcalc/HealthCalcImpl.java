@@ -2,7 +2,7 @@ package healthcalc;
 
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class HealthCalcImpl implements HealthCalc {
+public class HealthCalcImpl {
 	
 		private static HealthCalcImpl instance;
 	
@@ -16,8 +16,9 @@ public class HealthCalcImpl implements HealthCalc {
 			return instance;
 		}
 
-    @Override
-    public String bmiClassification(double bmi) throws InvalidHealthDataException {
+    public String bmiClassification(Person person) throws InvalidHealthDataException {
+        double bmi=this.bmi(person); 
+        
         if (bmi < 0) {
             throw new InvalidHealthDataException("El IMC no puede ser negativo.");
         }
@@ -45,8 +46,10 @@ public class HealthCalcImpl implements HealthCalc {
         
     }
 
-    @Override
-    public double bmi(double weight, double height) throws InvalidHealthDataException {
+    public double bmi(Person person) throws InvalidHealthDataException {
+        double weight = person.weight();
+        double height = person.height();
+
         if (weight <= 0) {
             throw new InvalidHealthDataException("El peso debe ser positivo.");
         }
@@ -62,10 +65,14 @@ public class HealthCalcImpl implements HealthCalc {
         return weight / Math.pow(height, 2);
     }
 
-    @Override
-    public double harrisBenedict(double weight, double height, char gender, int age) throws InvalidHealthDataException {
-        if (gender != 'M' && gender != 'W') {
-            throw new InvalidHealthDataException("El género debe ser 'M' o 'W'.");
+    public double harrisBenedict(Person person) throws InvalidHealthDataException {
+        double weight = person.weight();
+        double height = person.height()*100;
+        Gender gender = person.gender();
+        int age = person.age();
+
+        if (gender==null) {
+            throw new InvalidHealthDataException("El género no puede ser nulo.");
         }
         if (weight <= 0) {
             throw new InvalidHealthDataException("El peso debe ser positivo.");
@@ -87,18 +94,20 @@ public class HealthCalcImpl implements HealthCalc {
         }
 
         double bmr = 0.0;
-        if (gender == 'M') {
+        if (gender == Gender.MALE) {
             bmr = 88.362 + (13.397*weight) + (4.799*height) - (5.677*age);
-        } else { // If the program gets here, it's necessarily 'W' due to the initial exception check.
+        } else { 
             bmr = 447.593 + (9.247*weight) + (3.098*height) - (4.330*age);
         }
         return bmr;
     }
 
-    @Override
-    public double idealBodyWeight(double height, char gender) throws InvalidHealthDataException {
-        if (gender != 'M' && gender != 'W') {
-            throw new InvalidHealthDataException("El género debe ser 'M' o 'W'.");
+    public double idealBodyWeight(Person person) throws InvalidHealthDataException {
+        double height = person.height()*100;
+        Gender gender = person.gender();
+        
+        if (gender == null) {
+            throw new InvalidHealthDataException("El género no puede ser nulo.");
         }
         
         if (height <= 0) {
@@ -109,10 +118,9 @@ public class HealthCalcImpl implements HealthCalc {
         }
 
         double ibw = 0.0;
-        if (gender == 'M') {
+        if (gender == Gender.MALE) {
             ibw = (height - 100) - ((height - 150) / 4.0);
         } else { 
-            // If the program gets here, it's necessarily 'W' due to the initial exception check.
             ibw = (height - 100) - ((height - 150) / 2.0);
         }
         
