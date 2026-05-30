@@ -3,16 +3,19 @@ package healthcalc.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import healthcalc.HealthCalc;
+import healthcalc.BasalMetabolicRate;
+import healthcalc.Gender;
+import healthcalc.Patient;
+import healthcalc.Person;
 import healthcalc.exceptions.InvalidHealthDataException;
 import healthcalc.view.ViewHB;
 
 public class CtrHB implements ActionListener {
 
-    private HealthCalc model;
+    private BasalMetabolicRate model;
     private ViewHB view;
 
-    public CtrHB(HealthCalc model, ViewHB view) {
+    public CtrHB(BasalMetabolicRate model, ViewHB view) {
         this.model = model;
         this.view = view;
     }
@@ -22,11 +25,15 @@ public class CtrHB implements ActionListener {
         String command = e.getActionCommand();
         if (command.equalsIgnoreCase("CalcularHB")){
             try {
-                double weight = view.getWeight();
-                double height = view.getHeightValue();
+                float weight = (float) view.getWeight();
+                float height = (float) view.getHeightValue();
                 int age = view.getAge();
-                char gender = view.getGender();
-                double result = model.harrisBenedict(weight, height, gender, age);
+                char genderChar = view.getGender();
+
+                Gender gender = (Character.toUpperCase(genderChar) == 'M') ? Gender.MALE : Gender.FEMALE;
+                Person patient = new Patient(weight, height, gender, age);
+
+                float result = model.basalMetabolicRate(patient);
                 view.setResult(result);
             } catch (NumberFormatException ex) {
                 view.setMessage("Error: por favor, introduzca números válidos.");

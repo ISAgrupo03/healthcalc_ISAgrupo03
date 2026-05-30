@@ -3,16 +3,19 @@ package healthcalc.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import healthcalc.HealthCalc;
+import healthcalc.Gender;
+import healthcalc.IdealBodyWeight;
+import healthcalc.Patient;
+import healthcalc.Person;
 import healthcalc.exceptions.InvalidHealthDataException;
 import healthcalc.view.ViewIBW;
 
 public class CtrIBW implements ActionListener {
 
-    private HealthCalc model;
+    private IdealBodyWeight model;
     private ViewIBW view;
 
-    public CtrIBW(HealthCalc model, ViewIBW view) {
+    public CtrIBW(IdealBodyWeight model, ViewIBW view) {
         this.model = model;
         this.view = view;
     }
@@ -22,10 +25,13 @@ public class CtrIBW implements ActionListener {
         String command = e.getActionCommand();
         if (command.equalsIgnoreCase("CalcularIBW")) {
             try {
-                double height = view.getHeightValue();
-                char gender = view.getGender();
+                float height = (float) view.getHeightValue();
+                char genderChar = view.getGender();
+
+                Gender gender = (Character.toUpperCase(genderChar) == 'M') ? Gender.MALE : Gender.FEMALE;
+                Person patient = new Patient(70.0f, height, gender, 30);
                 
-                double result = model.idealBodyWeight(height, gender);
+                float result = model.idealBodyWeight(patient);
                 
                 view.setResult(result);
             } catch (NumberFormatException ex) {

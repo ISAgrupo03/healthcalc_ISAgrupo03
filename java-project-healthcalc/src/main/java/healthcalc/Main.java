@@ -5,35 +5,43 @@ import healthcalc.exceptions.InvalidHealthDataException;
 public class Main {
     public static void main(String[] args) {
         
-        HealthCalc baseCalc = HealthCalcImpl.getInstance();
-        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(baseCalc);
-        HealthCalc calculadora = objetoProxy;   
-        HealthStats estadisticas = objetoProxy; 
+        HealthCalcImpl calculadora = HealthCalcImpl.getInstance();
+        //ProxyHealthCalc objetoProxy = new ProxyHealthCalc(baseCalc);
+        //HealthCalc calculadora = objetoProxy;   
+        //HealthStats estadisticas = objetoProxy; 
         
         try {
-            double weight = 75.0; 
-            double height = 1.75; 
-            char gender = 'M'; 
+            float weight = 75.0f; 
+            float height = 1.75f; 
+            Gender gender = Gender.MALE; 
             int age = 30; 
             
             System.out.println("Data: Weight=" + weight +"kg, Height=" + height + "m, Gender=" + gender + ", Age=" + age + " years");
+
+            Person patient = new Patient(weight, height, gender, age);
             
-            double bmiValue = calculadora.bmi(weight, height);
+            float bmiValue = calculadora.bodyMassIndex(patient);
             System.out.println("BMI: " + String.format("%.2f", bmiValue));
             
-            String bmiClass = calculadora.bmiClassification(bmiValue);
+            BMICategory bmiClass = calculadora.category(patient);
             System.out.println("BMI classification: " + bmiClass);
             
-            double ibw = calculadora.idealBodyWeight(height*100, gender); 
+            float ibw = calculadora.idealBodyWeight(patient); 
             System.out.println("Ideal body weight (IBW): " + String.format("%.2f", ibw) + " kg");
             
-            double tmb = calculadora.harrisBenedict(weight, height*100, gender, age); 
+            float tmb = calculadora.basalMetabolicRate(patient); 
             System.out.println("Basal metabolic rate (Harris-Benedict): " + String.format("%.2f", tmb) + " kcal/day");
             
         } catch (InvalidHealthDataException e) {
             System.err.println("Error: " + e.getMessage());
         }
         
+        /* 
+
+        AVISO PARA PALOMA
+        Todo este bloque de patrones de diseño (Proxy, Adapter, Decorator) lo he comentado temporalmente para que el proyecto 
+        compile tras segregar la interfaz HealthCalc. Paloma debe descomentarlo y refactorizarlo.
+
         System.out.println("\nPATRÓN ADAPTER");
         HealthHospital hospitalCalc = new AdapterHospital(calculadora);
         
@@ -94,5 +102,7 @@ public class Main {
         } catch (Exception e) {
             System.err.println("Error en los decoradores: " + e.getMessage());
         }
+
+        */
     }
 }
