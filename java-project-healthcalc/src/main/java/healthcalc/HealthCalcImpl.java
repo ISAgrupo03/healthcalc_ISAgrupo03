@@ -2,22 +2,23 @@ package healthcalc;
 
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class HealthCalcImpl {
-	
-		private static HealthCalcImpl instance;
-	
-		private HealthCalcImpl() {
-		}
+public class HealthCalcImpl implements BodyMassIndex, IdealBodyWeight, BasalMetabolicRate {
 
-		public static HealthCalcImpl getInstance() {
-			if (instance == null) {
-				instance = new HealthCalcImpl();
-			}
-			return instance;
-		}
+    private static HealthCalcImpl instance;
 
-    public String bmiClassification(Person person) throws InvalidHealthDataException {
-        double bmi=this.bmi(person); 
+    private HealthCalcImpl() {
+    }
+
+    public static HealthCalcImpl getInstance() {
+        if (instance == null) {
+            instance = new HealthCalcImpl();
+        }
+        return instance;
+    }
+
+    @Override
+    public BMICategory category(Person person) throws InvalidHealthDataException {
+        float bmi = this.bodyMassIndex(person); 
         
         if (bmi < 0) {
             throw new InvalidHealthDataException("El IMC no puede ser negativo.");
@@ -26,29 +27,29 @@ public class HealthCalcImpl {
             throw new InvalidHealthDataException("El IMC debe estar dentro de un rango posible [0-150].");
         }
         
-        if (bmi < 16.0) {
-            return "Delgadez severa";
-        } else if (bmi < 17.0) {
-            return "Delgadez moderada";
-        } else if (bmi < 18.5) {
-            return "Delgadez leve";
-        } else if (bmi < 25.0) {
-            return "Normal";
-        } else if (bmi < 30.0) {
-            return "Sobrepeso";
-        } else if (bmi < 35.0) {
-            return "Obesidad Clase I";
-        } else if (bmi < 40.0) {
-            return "Obesidad Clase II";
+        if (bmi < 16.0f) {
+            return BMICategory.SEVERE_THINNESS;
+        } else if (bmi < 17.0f) {
+            return BMICategory.MODERATE_THINNESS;
+        } else if (bmi < 18.5f) {
+            return BMICategory.MILD_THINNESS;
+        } else if (bmi < 25.0f) {
+            return BMICategory.NORMAL;
+        } else if (bmi < 30.0f) {
+            return BMICategory.OVERWEIGHT;
+        } else if (bmi < 35.0f) {
+            return BMICategory.OBESE_CLASS_I;
+        } else if (bmi < 40.0f) {
+            return BMICategory.OBESE_CLASS_II;
         } else {
-            return "Obesidad Clase III";
+            return BMICategory.OBESE_CLASS_III;
         }
-        
     }
 
-    public double bmi(Person person) throws InvalidHealthDataException {
-        double weight = person.weight();
-        double height = person.height();
+    @Override
+    public float bodyMassIndex(Person person) throws InvalidHealthDataException {
+        float weight = person.weight();
+        float height = person.height();
 
         if (weight <= 0) {
             throw new InvalidHealthDataException("El peso debe ser positivo.");
@@ -62,16 +63,17 @@ public class HealthCalcImpl {
         if (height < 0.30 || height > 3.00) {
             throw new InvalidHealthDataException("La altura debe estar dentro de un rango posible [0.30-3.00] m.");
         }
-        return weight / Math.pow(height, 2);
+        return (float) (weight / Math.pow(height, 2));
     }
 
-    public double harrisBenedict(Person person) throws InvalidHealthDataException {
-        double weight = person.weight();
-        double height = person.height()*100;
+    @Override
+    public float basalMetabolicRate(Person person) throws InvalidHealthDataException {
+        float weight = person.weight();
+        float height = person.height() * 100f;
         Gender gender = person.gender();
         int age = person.age();
 
-        if (gender==null) {
+        if (gender == null) {
             throw new InvalidHealthDataException("El género no puede ser nulo.");
         }
         if (weight <= 0) {
@@ -93,17 +95,18 @@ public class HealthCalcImpl {
             throw new InvalidHealthDataException("La edad debe estar dentro de un rango posible [0-120] años.");
         }
 
-        double bmr = 0.0;
+        float bmr = 0.0f;
         if (gender == Gender.MALE) {
-            bmr = 88.362 + (13.397*weight) + (4.799*height) - (5.677*age);
+            bmr = (float) (88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age));
         } else { 
-            bmr = 447.593 + (9.247*weight) + (3.098*height) - (4.330*age);
+            bmr = (float) (447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age));
         }
         return bmr;
     }
 
-    public double idealBodyWeight(Person person) throws InvalidHealthDataException {
-        double height = person.height()*100;
+    @Override
+    public float idealBodyWeight(Person person) throws InvalidHealthDataException {
+        float height = person.height() * 100f;
         Gender gender = person.gender();
         
         if (gender == null) {
@@ -117,11 +120,11 @@ public class HealthCalcImpl {
             throw new InvalidHealthDataException("La altura debe estar dentro de un rango posible [30-300] cm.");
         }
 
-        double ibw = 0.0;
+        float ibw = 0.0f;
         if (gender == Gender.MALE) {
-            ibw = (height - 100) - ((height - 150) / 4.0);
+            ibw = (float) ((height - 100) - ((height - 150) / 4.0));
         } else { 
-            ibw = (height - 100) - ((height - 150) / 2.0);
+            ibw = (float) ((height - 100) - ((height - 150) / 2.0));
         }
         
         return ibw;
