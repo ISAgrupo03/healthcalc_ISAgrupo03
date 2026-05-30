@@ -121,7 +121,7 @@ public class HealthCalcImpl {
         if (gender == Gender.MALE) {
             ibw = (height - 100) - ((height - 150) / 4.0);
         } else { 
-            ibw = (height - 100) - ((height - 150) / 2.5);
+            ibw = (height - 100) - ((height - 150) / 2.0);
         }
         
         return ibw;
