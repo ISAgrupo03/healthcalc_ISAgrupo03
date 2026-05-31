@@ -385,3 +385,42 @@ Para probar la calculadora sin necesidad de abrir el entorno de desarrollo:
   * **Decoradores de Idioma (`BaseDecoratorIdioma`, `SpanishDecorator`, `EnglishDecorator`):** Extienden las funcionalidades de salida formateando y traduciendo las respuestas de clasificación al idioma seleccionado.
 * **Diagrama UML combinado final:**
   ![Diagrama UML - Decorator Completo](design_patterns/04_Decorator_UML.png)
+
+## Práctica 7: Refactorings
+
+A continuación se detallan los 5 refactorings aplicados al proyecto para adaptar la arquitectura al nuevo diagrama y resolver diversos *bad smells*:
+
+### Refactoring 1. Sustitución de tipos primitivos 
+* (1) Bad smell: Primitive Obsession (obsesión por los primitivos).
+* (2) Refactoring: Replace Type Code with Enum.
+* (3) Categoría: Class refactoring.
+* (4) Descripción: Sustituimos los tipos primitivos que representaban el género y la clasificación (char y String) por enumerados (Gender y BMICategory).
+* (5) Cambios manuales: 2 archivos nuevos creados (Gender.java y BMICategory.java).
+
+### Refactoring 2. Encapsulación de datos del paciente
+* (1) Bad smell: Data Clumps/Long Parameter List (grupos de datos y lista larga de parámetros).
+* (2) Refactoring: Introduce Parameter Object/Extract Class.
+* (3) Categoría: Class refactoring.
+* (4) Descripción: Extraemos los datos del paciente (peso, altura, edad, género) a una nueva interfaz Person y su implementación Patient para encapsular la información.
+* (5) Cambios manuales: 2 archivos nuevos creados (Person.java y Patient.java).
+
+### Refactoring 3. Segregación de interfaces 
+* (1) Bad smell: Large Class/Fat Interface (interfaz gorda).
+* (2) Refactoring: Extract Interface.
+* (3) Categoría: Class refactoring.
+* (4) Descripción: Eliminamos la interfaz HealthCalc y la segregamos en tres interfaces independientes (BodyMassIndex, IdealBodyWeight y BasalMetabolicRate) para cumplir el Principio de Segregación de Interfaces (ISP).
+* (5) Cambios manuales: 4 archivos modificados (eliminada la interfaz HealthCalc y creadas las 3 nuevas interfaces).
+
+### Refactoring 4. Inyección de dependencias mediante objetos
+* (1) Bad smell: Long Parameter List (lista larga de parámetros).
+* (2) Refactoring: Preserve Whole Object.
+* (3) Categoría: Method refactoring.
+* (4) Descripción: Modificamos las firmas de los métodos en HealthCalcImpl (y en sus clientes/controladores) para que reciban el objeto completo Person en lugar de los parámetros primitivos sueltos.
+* (5) Cambios manuales: Cambios manuales: 11 archivos modificados (HealthCalcImpl, los tres controladores del MVC, el proxy, el adapter, los tres archivos de tests y los dos main -consola e interfaz-).
+
+### Refactoring 5. Estandarización de nomenclatura
+* (1) Bad smell: Uncommunicative Name (nombres poco comunicativos).
+* (2) Refactoring: Rename Method.
+* (3) Categoría: Method refactoring.
+* (4) Descripción: Renombramos los métodos (ej. bmi a bodyMassIndex, harrisBenedict a basalMetabolicRate) para estandarizarlos y reflejar la nomenclatura correcta.
+* (5) Cambios manuales: 1 archivo modificado en sus firmas (HealthCalcImpl.java), además de las llamadas en los tests.
