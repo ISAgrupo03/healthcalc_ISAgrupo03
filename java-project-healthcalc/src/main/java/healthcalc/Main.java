@@ -6,8 +6,7 @@ public class Main {
     public static void main(String[] args) {
         
         HealthCalcImpl calculadora = HealthCalcImpl.getInstance();
-        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(calculadora);
-        //HealthCalc calculadora = objetoProxy;   
+        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(calculadora, calculadora, calculadora);  
         HealthStats estadisticas = objetoProxy; 
         
         try {
@@ -38,7 +37,7 @@ public class Main {
         
         
         System.out.println("\nPATRÓN ADAPTER");
-        HealthHospital hospitalCalc = new AdapterHospital(objetoProxy);
+        HealthHospital hospitalCalc = new AdapterHospital(objetoProxy, objetoProxy);
         
         try {
             float alturaHospital = 1.75f;

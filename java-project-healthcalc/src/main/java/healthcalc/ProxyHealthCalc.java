@@ -5,7 +5,10 @@ import java.util.List;
 import healthcalc.exceptions.InvalidHealthDataException;
 
 public class ProxyHealthCalc implements BodyMassIndex, IdealBodyWeight, BasalMetabolicRate, HealthStats {
-    private HealthCalcImpl calc;
+    
+    private BodyMassIndex bmiCalc;
+    private IdealBodyWeight ibwCalc;
+    private BasalMetabolicRate bmrCalc;
     
     private List<Float> alturas;
     private List<Float> pesos;
@@ -14,8 +17,10 @@ public class ProxyHealthCalc implements BodyMassIndex, IdealBodyWeight, BasalMet
     
     private int totalPacientes; 
 
-    public ProxyHealthCalc(HealthCalcImpl calc) {
-        this.calc = calc;
+    public ProxyHealthCalc(BodyMassIndex bmiCalc, IdealBodyWeight ibwCalc, BasalMetabolicRate bmrCalc) {
+        this.bmiCalc = bmiCalc;
+        this.ibwCalc = ibwCalc;
+        this.bmrCalc = bmrCalc;
         this.alturas = new ArrayList<>();
         this.pesos = new ArrayList<>();
         this.generos = new ArrayList<>();
@@ -25,12 +30,12 @@ public class ProxyHealthCalc implements BodyMassIndex, IdealBodyWeight, BasalMet
 
     @Override
     public BMICategory category(Person person)throws InvalidHealthDataException {
-        return calc.category(person);
+        return bmiCalc.category(person);
     }
     
     @Override
     public float bodyMassIndex(Person person) throws InvalidHealthDataException {
-        float res = calc.bodyMassIndex(person);
+        float res = bmiCalc.bodyMassIndex(person);
 
         pesos.add(person.weight());
         alturas.add(person.height());
@@ -42,7 +47,7 @@ public class ProxyHealthCalc implements BodyMassIndex, IdealBodyWeight, BasalMet
 
     @Override
     public float idealBodyWeight(Person person) throws InvalidHealthDataException {
-        float res =  calc.idealBodyWeight(person);
+        float res =  ibwCalc.idealBodyWeight(person);
         alturas.add(person.height());
         char gen=(person.gender()==Gender.MALE) ? 'M' : 'W';
         generos.add(gen);
@@ -53,7 +58,7 @@ public class ProxyHealthCalc implements BodyMassIndex, IdealBodyWeight, BasalMet
 
     @Override
     public float basalMetabolicRate(Person person) throws InvalidHealthDataException {
-        float res = calc.basalMetabolicRate(person);
+        float res = bmrCalc.basalMetabolicRate(person);
         pesos.add(person.weight());
         alturas.add(person.height());
         char gen=(person.gender()==Gender.MALE) ? 'M' : 'W';
