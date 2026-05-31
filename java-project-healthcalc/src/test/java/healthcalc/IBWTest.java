@@ -14,17 +14,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import healthcalc.exceptions.InvalidHealthDataException;
 
-/**
- * Tests for the Ideal Body Weight (IBW) metric using the Lorentz formula.
- * 
- * Using the AAA pattern (Arrange, Act, Assert) for the tests.
- * 
- * @author Aissa (ISAgrupo03)
- */
 @DisplayName("Tests para la métrica IBW (Fórmula de Lorentz)")
 public class IBWTest {
 
-    private HealthCalc healthCalc;
+    private HealthCalcImpl healthCalc;
 
     @BeforeEach
     void setUp() {
@@ -35,28 +28,30 @@ public class IBWTest {
     @DisplayName("Cálculos válidos de la métrica IBW")
     class IBWValidosTests {
 
-        @ParameterizedTest(name = "Hombre: altura {0} cm -> IBW esperado {1} kg")
+        @ParameterizedTest(name = "Hombre: altura {0} m -> IBW esperado {1} kg")
         @CsvSource({
-                "170.0, 65.0",
-                "180.0, 72.5",
-                "150.0, 50.0" 
+                "1.70, 65.0",
+                "1.80, 72.5",
+                "1.50, 50.0" 
         })
         @DisplayName("Cálculo válido de IBW para hombres")
-        void testIBWHombre(double height, double expected) throws InvalidHealthDataException {
-            double result = healthCalc.idealBodyWeight(height, 'M');
-            assertEquals(expected, result, 0.01);
+        void testIBWHombre(float height, float expected) throws InvalidHealthDataException {
+            Person patient = new Patient(70.0f, height, Gender.MALE, 30);
+            float result = healthCalc.idealBodyWeight(patient);
+            assertEquals(expected, result, 0.01f);
         }
 
-        @ParameterizedTest(name = "Mujer: altura {0} cm -> IBW esperado {1} kg")
+        @ParameterizedTest(name = "Mujer: altura {0} m -> IBW esperado {1} kg")
         @CsvSource({
-                "160.0, 55.0",
-                "170.0, 60.0",
-                "150.0, 50.0" 
+                "1.60, 55.0",
+                "1.70, 60.0",
+                "1.50, 50.0" 
         })
         @DisplayName("Cálculo válido de IBW para mujeres")
-        void testIBWMujer(double height, double expected) throws InvalidHealthDataException {
-            double result = healthCalc.idealBodyWeight(height, 'W');
-            assertEquals(expected, result, 0.01);
+        void testIBWMujer(float height, float expected) throws InvalidHealthDataException {
+            Person patient = new Patient(60.0f, height, Gender.FEMALE, 30);
+            float result = healthCalc.idealBodyWeight(patient);
+            assertEquals(expected, result, 0.01f);
         }
     }
 
@@ -65,36 +60,35 @@ public class IBWTest {
     class IBWInvalidosTests {
 
         @Test
-        @DisplayName("Lanzar excepción cuando el género es inválido")
+        @DisplayName("Lanzar excepción cuando el género es nulo")
         void testIBWSexoInvalido() {
-            assertAll(
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(170.0, 'X')),
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(170.0, 'm')), 
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(170.0, ' '))
-            );
+            Person patient = new Patient(70.0f, 1.70f, null, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(patient));
         }
 
         @Test
         @DisplayName("Lanzar excepción cuando la altura es cero o negativa")
         void testIBWAlturaCeroONegativa() {
             assertAll(
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(0.0, 'M')),
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(-170.0, 'W'))
+                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(new Patient(70.0f, 0.0f, Gender.MALE, 30))),
+                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(new Patient(70.0f, -1.70f, Gender.FEMALE, 30)))
             );
         }
 
-        @ParameterizedTest(name = "Altura mínima inválida: {0} cm")
-        @ValueSource(doubles = {29.9, 15.0})
+        @ParameterizedTest(name = "Altura mínima inválida: {0} m")
+        @ValueSource(floats = {0.299f, 0.15f})
         @DisplayName("Bloqueo de alturas inferiores al límite biológico mínimo (30 cm)")
-        void testIBWAlturaMinimaImposible(double height) {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(height, 'M'));
+        void testIBWAlturaMinimaImposible(float height) {
+            Person patient = new Patient(70.0f, height, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(patient));
         }
 
-        @ParameterizedTest(name = "Altura máxima inválida: {0} cm")
-        @ValueSource(doubles = {300.1, 350.0, 500.0})
+        @ParameterizedTest(name = "Altura máxima inválida: {0} m")
+        @ValueSource(floats = {3.001f, 3.50f, 5.00f})
         @DisplayName("Bloqueo de alturas superiores al límite biológico máximo (300 cm)")
-        void testIBWAlturaMaximaImposible(double height) {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(height, 'W'));
+        void testIBWAlturaMaximaImposible(float height) {
+            Person patient = new Patient(70.0f, height, Gender.FEMALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.idealBodyWeight(patient));
         }
     }
 }
