@@ -6,9 +6,9 @@ public class Main {
     public static void main(String[] args) {
         
         HealthCalcImpl calculadora = HealthCalcImpl.getInstance();
-        //ProxyHealthCalc objetoProxy = new ProxyHealthCalc(baseCalc);
+        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(calculadora);
         //HealthCalc calculadora = objetoProxy;   
-        //HealthStats estadisticas = objetoProxy; 
+        HealthStats estadisticas = objetoProxy; 
         
         try {
             float weight = 75.0f; 
@@ -20,30 +20,25 @@ public class Main {
 
             Person patient = new Patient(weight, height, gender, age);
             
-            float bmiValue = calculadora.bodyMassIndex(patient);
+            float bmiValue = objetoProxy.bodyMassIndex(patient);
             System.out.println("BMI: " + String.format("%.2f", bmiValue));
             
-            BMICategory bmiClass = calculadora.category(patient);
+            BMICategory bmiClass = objetoProxy.category(patient);
             System.out.println("BMI classification: " + bmiClass);
             
-            float ibw = calculadora.idealBodyWeight(patient); 
+            float ibw = objetoProxy.idealBodyWeight(patient); 
             System.out.println("Ideal body weight (IBW): " + String.format("%.2f", ibw) + " kg");
             
-            float tmb = calculadora.basalMetabolicRate(patient); 
+            float tmb = objetoProxy.basalMetabolicRate(patient); 
             System.out.println("Basal metabolic rate (Harris-Benedict): " + String.format("%.2f", tmb) + " kcal/day");
             
         } catch (InvalidHealthDataException e) {
             System.err.println("Error: " + e.getMessage());
         }
         
-        /* 
-
-        AVISO PARA PALOMA
-        Todo este bloque de patrones de diseño (Proxy, Adapter, Decorator) lo he comentado temporalmente para que el proyecto 
-        compile tras segregar la interfaz HealthCalc. Paloma debe descomentarlo y refactorizarlo.
-
+        
         System.out.println("\nPATRÓN ADAPTER");
-        HealthHospital hospitalCalc = new AdapterHospital(calculadora);
+        HealthHospital hospitalCalc = new AdapterHospital(objetoProxy);
         
         try {
             float alturaHospital = 1.75f;
@@ -103,6 +98,6 @@ public class Main {
             System.err.println("Error en los decoradores: " + e.getMessage());
         }
 
-        */
+        
     }
 }

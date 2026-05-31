@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import healthcalc.exceptions.InvalidHealthDataException;
 
-public class ProxyHealthCalc implements HealthCalc, HealthStats {
-    private HealthCalc calc;
+public class ProxyHealthCalc implements BodyMassIndex, IdealBodyWeight, BasalMetabolicRate, HealthStats {
+    private HealthCalcImpl calc;
     
     private List<Float> alturas;
     private List<Float> pesos;
@@ -14,7 +14,7 @@ public class ProxyHealthCalc implements HealthCalc, HealthStats {
     
     private int totalPacientes; 
 
-    public ProxyHealthCalc(HealthCalc calc) {
+    public ProxyHealthCalc(HealthCalcImpl calc) {
         this.calc = calc;
         this.alturas = new ArrayList<>();
         this.pesos = new ArrayList<>();
@@ -24,38 +24,40 @@ public class ProxyHealthCalc implements HealthCalc, HealthStats {
     }
 
     @Override
-    public String bmiClassification(double bmi) throws InvalidHealthDataException {
-        return calc.bmiClassification(bmi);
+    public BMICategory category(Person person)throws InvalidHealthDataException {
+        return calc.category(person);
     }
     
     @Override
-    public double bmi(double weight, double height) throws InvalidHealthDataException {
-        double res = calc.bmi(weight, height);
+    public float bodyMassIndex(Person person) throws InvalidHealthDataException {
+        float res = calc.bodyMassIndex(person);
 
-        pesos.add((float) weight);
-        alturas.add((float) height);
+        pesos.add(person.weight());
+        alturas.add(person.height());
         totalPacientes++;
-        imcs.add((float) res);
+        imcs.add(res);
 
         return res;
     }
 
     @Override
-    public double idealBodyWeight(double height, char gender) throws InvalidHealthDataException {
-        double res =  calc.idealBodyWeight(height, gender);
-        alturas.add((float) (height / 100.0)); 
-        generos.add(gender);
+    public float idealBodyWeight(Person person) throws InvalidHealthDataException {
+        float res =  calc.idealBodyWeight(person);
+        alturas.add(person.height());
+        char gen=(person.gender()==Gender.MALE) ? 'M' : 'W';
+        generos.add(gen);
         totalPacientes++;
         
         return res;
     }
 
     @Override
-    public double harrisBenedict(double weight, double height, char gender, int age) throws InvalidHealthDataException {
-        double res = calc.harrisBenedict(weight, height, gender, age);
-        pesos.add((float) weight);
-        alturas.add((float) (height / 100.0)); //en m
-        generos.add(gender);
+    public float basalMetabolicRate(Person person) throws InvalidHealthDataException {
+        float res = calc.basalMetabolicRate(person);
+        pesos.add(person.weight());
+        alturas.add(person.height());
+        char gen=(person.gender()==Gender.MALE) ? 'M' : 'W';
+        generos.add(gen);
         totalPacientes++;
         
         return res;
