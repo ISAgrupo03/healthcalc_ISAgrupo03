@@ -2,10 +2,12 @@ package healthcalc;
 
 public class AdapterHospital implements HealthHospital {
 	
-    private ProxyHealthCalc calc;
+    private BodyMassIndex bmiCalc;
+    private IdealBodyWeight ibwCalc;
 
-    public AdapterHospital(ProxyHealthCalc calc) {
-        this.calc = calc;
+    public AdapterHospital(BodyMassIndex bmiCalc, IdealBodyWeight ibwCalc) {
+        this.bmiCalc = bmiCalc;
+        this.ibwCalc = ibwCalc;
     }
 
     @Override
@@ -15,7 +17,7 @@ public class AdapterHospital implements HealthHospital {
 
         Person patient= new Patient(70.0f, altura, genEnum, 30); 
 
-        float ibwKilos = calc.idealBodyWeight(patient);
+        float ibwKilos = ibwCalc.idealBodyWeight(patient);
 
         return (int) (ibwKilos * 1000);
     }
@@ -27,8 +29,20 @@ public class AdapterHospital implements HealthHospital {
 
         Person patient = new Patient(pesoKilos, altura, Gender.MALE, 30);
         
-        float valorBmi = calc.bodyMassIndex(patient);
-        String clasificacion = calc.category(patient).toString();
+        float valorBmi = bmiCalc.bodyMassIndex(patient);
+        BMICategory catEnum = bmiCalc.category(patient);
+        String clasificacion = "";
+        switch (catEnum) {
+            case SEVERE_THINNESS: clasificacion = "Delgadez severa"; break;
+            case MODERATE_THINNESS: clasificacion = "Delgadez moderada"; break;
+            case MILD_THINNESS: clasificacion = "Delgadez leve"; break;
+            case NORMAL: clasificacion = "Normal"; break;
+            case OVERWEIGHT: clasificacion = "Sobrepeso"; break;
+            case OBESE_CLASS_I: clasificacion = "Obesidad Clase I"; break;
+            case OBESE_CLASS_II: clasificacion = "Obesidad Clase II"; break;
+            case OBESE_CLASS_III: clasificacion = "Obesidad Clase III"; break;
+            default: clasificacion = catEnum.toString();
+        }
         
         return new Tuple<>((float) valorBmi, clasificacion);
     }

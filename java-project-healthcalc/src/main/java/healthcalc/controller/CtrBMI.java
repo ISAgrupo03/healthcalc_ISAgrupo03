@@ -33,8 +33,21 @@ public class CtrBMI implements ActionListener {
                 
                 float result = model.bodyMassIndex(patient);
                 BMICategory category = model.category(patient);
+
+                String clasificacion = "";
+                switch (category) {
+                    case SEVERE_THINNESS: clasificacion = "Delgadez severa"; break;
+                    case MODERATE_THINNESS: clasificacion = "Delgadez moderada"; break;
+                    case MILD_THINNESS: clasificacion = "Delgadez leve"; break;
+                    case NORMAL: clasificacion = "Normal"; break;
+                    case OVERWEIGHT: clasificacion = "Sobrepeso"; break;
+                    case OBESE_CLASS_I: clasificacion = "Obesidad Clase I"; break;
+                    case OBESE_CLASS_II: clasificacion = "Obesidad Clase II"; break;
+                    case OBESE_CLASS_III: clasificacion = "Obesidad Clase III"; break;
+                    default: clasificacion = category.toString();
+                }
                 
-                view.setResult(result, category.toString());
+                view.setResult(result, clasificacion);
                 
             } catch (NumberFormatException ex) {
                 view.setMessage("Error: por favor, introduzca números válidos.");
