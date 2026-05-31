@@ -415,7 +415,7 @@ A continuación se detallan los 5 refactorings aplicados al proyecto para adapta
 * (1) Bad smell: Long Parameter List (lista larga de parámetros).
 * (2) Refactoring: Preserve Whole Object.
 * (3) Categoría: Method refactoring.
-* (4) Descripción: Modificamos las firmas de los métodos en HealthCalcImpl (y en sus clientes/controladores) para que reciban el objeto completo Person en lugar de los parámetros primitivos sueltos.
+* (4) Descripción: Modificamos las firmas de los métodos en HealthCalcImpl y en todas las clases que los llaman para que reciban el objeto Person en lugar de los parámetros sueltos.
 * (5) Cambios manuales: Cambios manuales: 11 archivos modificados (HealthCalcImpl, los tres controladores del MVC, el proxy, el adapter, los tres archivos de tests y los dos main -consola e interfaz-).
 
 ### Refactoring 5. Estandarización de nomenclatura
