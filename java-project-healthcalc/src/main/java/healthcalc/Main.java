@@ -4,34 +4,95 @@ import healthcalc.exceptions.InvalidHealthDataException;
 
 public class Main {
     public static void main(String[] args) {
-        HealthCalc healthCalc = new HealthCalcImpl();
+        
+        HealthCalc baseCalc = HealthCalcImpl.getInstance();
+        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(baseCalc);
+        HealthCalc calculadora = objetoProxy;   
+        HealthStats estadisticas = objetoProxy; 
         
         try {
-            double weight = 75.0; // kg
-            double height = 1.75; // m
-            char gender = 'M'; // male
-            int age = 30; // years
-
+            double weight = 75.0; 
+            double height = 1.75; 
+            char gender = 'M'; 
+            int age = 30; 
+            
             System.out.println("Data: Weight=" + weight +"kg, Height=" + height + "m, Gender=" + gender + ", Age=" + age + " years");
-
-            // BMI 
-            double bmiValue = healthCalc.bmi(weight, height);
+            
+            double bmiValue = calculadora.bmi(weight, height);
             System.out.println("BMI: " + String.format("%.2f", bmiValue));
-
-            // BMI classification
-            String bmiClass = healthCalc.bmiClassification(bmiValue);
+            
+            String bmiClass = calculadora.bmiClassification(bmiValue);
             System.out.println("BMI classification: " + bmiClass);
-
-            // IBW (ideal body weigth)
-            double ibw = healthCalc.idealBodyWeight(height*100, gender); // m to cm
+            
+            double ibw = calculadora.idealBodyWeight(height*100, gender); 
             System.out.println("Ideal body weight (IBW): " + String.format("%.2f", ibw) + " kg");
-
-            // Harris-Benedict (BMR)
-            double tmb = healthCalc.harrisBenedict(weight, height*100, gender, age); // m to cm
+            
+            double tmb = calculadora.harrisBenedict(weight, height*100, gender, age); 
             System.out.println("Basal metabolic rate (Harris-Benedict): " + String.format("%.2f", tmb) + " kcal/day");
-
+            
         } catch (InvalidHealthDataException e) {
             System.err.println("Error: " + e.getMessage());
+        }
+        
+        System.out.println("\nPATRÓN ADAPTER");
+        HealthHospital hospitalCalc = new AdapterHospital(calculadora);
+        
+        try {
+            float alturaHospital = 1.75f;
+            int pesoGramos = 75000; 
+            char generoHospital = 'M';
+            
+            System.out.println("Paciente registrado: Altura=" + alturaHospital + "m, Peso=" + pesoGramos + "g, Género=" + generoHospital);  
+            
+            Tuple<Float, String> bmiHospital = hospitalCalc.indiceMasaCorporal(alturaHospital, pesoGramos);
+            System.out.println("BMI Hospital: " + String.format("%.2f", bmiHospital.x) + " kg/m^2 - " + bmiHospital.y);
+            
+            int ibwHospital = hospitalCalc.pesoCorporalIdeal(generoHospital, alturaHospital);
+            System.out.println("IBW Hospital: " + ibwHospital + " g");
+            
+        } catch (Exception e) {
+            System.err.println("Error en el sistema del hospital: " + e.getMessage());
+        }
+
+        System.out.println("\nESTADÍSTICAS DEL PROXY");
+        System.out.println("Total pacientes: " + estadisticas.numTotalPacientes());
+        System.out.println("Hombres: " + estadisticas.numSexoH());
+        System.out.println("Mujeres: " + estadisticas.numSexoM());
+        System.out.println("Peso medio: " + String.format("%.2f", estadisticas.pesoMedio()) + " kg");
+        System.out.println("Altura media: " + String.format("%.2f", estadisticas.alturaMedia()) + " m");
+        System.out.println("IMC medio: " + String.format("%.2f", estadisticas.imcMedio()));
+
+        System.out.println("\nPATRÓN DECORATOR");
+        System.out.println("Americano + Inglés:");
+        try {
+            HealthHospital verEnglish = new EnglishDecorator(hospitalCalc);
+            HealthHospital verAmerican = new AmericanDecorator(verEnglish);
+            
+            float alturaPies = 6.0f;
+            int pesoLibras = 180;
+            
+            System.out.println("Paciente registrado: Altura=" + alturaPies + " pies, Peso=" + pesoLibras + " libras"); //americano
+        
+            verAmerican.indiceMasaCorporal(alturaPies, pesoLibras);
+            
+        } catch (Exception e) {
+            System.err.println("Error en los decoradores: " + e.getMessage());
+        }
+
+        System.out.println("\nEuropeo + Español:"); 
+        try {
+            HealthHospital verSpanish = new SpanishDecorator(hospitalCalc);
+            HealthHospital verEuropean = new EuropeanDecorator(verSpanish);
+              
+            float alturaMetros = 1.75f;
+            int pesoGramos = 75000;
+            
+            System.out.println("Paciente registrado: Altura=" + alturaMetros + " m, Peso=" + pesoGramos + " g");
+        
+            verEuropean.indiceMasaCorporal(alturaMetros, pesoGramos);
+            
+        } catch (Exception e) {
+            System.err.println("Error en los decoradores: " + e.getMessage());
         }
     }
 }
