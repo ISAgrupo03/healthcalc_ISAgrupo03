@@ -332,6 +332,7 @@ Para cada categoría, probamos valores que están justo en el límite para asegu
 </details>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## Especificación
 
 ### Casos de uso
@@ -401,4 +402,31 @@ En esta sección se describen las pruebas de comportamiento realizadas utilizand
 * **Casos límite:** Se comprueba el comportamiento ante alturas biológicamente imposibles (extremadamente bajas o altas).
 
 [Ver archivo de especificación Gherkin (IBW.feature)](java-project-healthcalc/src/test/resources/healthcalc/IBW.feature)
->>>>>>> p3
+
+
+## Interfaz gráfica de usuario (GUI)
+
+### Ejecución de la aplicación
+Para probar la calculadora sin necesidad de abrir el entorno de desarrollo:
+1. Localiza el archivo `HealthCalc_grupo03.jar` en la raíz de este repositorio.
+2. Descarga ese archivo y haz doble clic. Si tienes Java instalado, se ejecutará directamente.
+3. Si prefieres la consola, puedes usar el comando: `java -jar HealthCalc_grupo03.jar`
+
+<details>
+<summary><b>Vistas de la calculadora</b></summary>
+
+### Índice de masa corporal (BMI)
+![Captura del funcionamiento de la pestaña del BMI](doc/gui/captura_BMI_gui.png)
+
+---
+
+### Peso corporal ideal (IBW - Fórmula de Lorentz)
+![Captura del funcionamiento de la pestaña del IBW](doc/gui/captura_IBW_gui.png)
+
+---
+
+### Tasa metabólica basal (TMB - Harris-Benedict)
+![Captura del funcionamiento de la pestaña de la TMB](doc/gui/captura_TMB_gui.png)
+
+</details>
+
