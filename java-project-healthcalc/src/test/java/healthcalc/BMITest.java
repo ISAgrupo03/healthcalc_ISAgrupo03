@@ -14,22 +14,15 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import healthcalc.exceptions.InvalidHealthDataException;
 
-/**
- * Tests for the HealthCalc interface.
- * 
- * Use the AAA pattern (Arrange, Act, Assert) for the tests.
- * 
- * @author palomamtnz13 (ISAgrupo03)
- */
 @DisplayName("Tests para la métrica BMI y su clasificación.")
 public class BMITest {
 
-	private HealthCalc healthCalc;
+    private HealthCalcImpl healthCalc;
 
-	@BeforeEach
-	void setUp() {
-		healthCalc = new HealthCalcImpl();
-	}
+    @BeforeEach
+    void setUp() {
+        healthCalc = HealthCalcImpl.getInstance();
+    }
 
     @Nested
     @DisplayName("Métrica del BMI")
@@ -38,109 +31,106 @@ public class BMITest {
         @Test
         @DisplayName("Cálculo de BMI con valores estándar válidos")
         void testBmiValido() throws InvalidHealthDataException {
-            double weight = 70.0;
-            double height = 1.75;
-            double expectedBmi = 70.0 / Math.pow(1.75, 2);
+            Person patient = new Patient(70.0f, 1.75f, Gender.MALE, 30);
+            float expectedBmi = 70.0f / (float) Math.pow(1.75f, 2);
 
-            double result = healthCalc.bmi(weight, height);
+            float result = healthCalc.bodyMassIndex(patient);
 
-            assertEquals(expectedBmi, result, 0.01);
+            assertEquals(expectedBmi, result, 0.01f);
         }
 
         @Test
         @DisplayName("Lanzar excepción cuando el peso es cero")
         void testBmiPesoCero() {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(0, 170));
+            Person patient = new Patient(0.0f, 1.70f, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(patient));
         }
 
         @Test
         @DisplayName("Lanzar excepción cuando la altura es cero")
         void testBmiAlturaCero() {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(70, 0));
+            Person patient = new Patient(70.0f, 0.0f, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(patient));
         }
 
         @Test
         @DisplayName("Lanzar excepción cuando los valores son negativos")
         void testBmiNegativos() {
             assertAll(
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(-70, 170)),
-                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(70, -170))
+                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(new Patient(-70.0f, 1.70f, Gender.MALE, 30))),
+                () -> assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(new Patient(70.0f, -1.70f, Gender.MALE, 30)))
             );
         }
 
         @ParameterizedTest(name = "Peso mínimo inválido: {0} kg")
-        @ValueSource(doubles = {-10.0, 0.0, 0.99})
+        @ValueSource(floats = {-10.0f, 0.0f, 0.99f})
         @DisplayName("Bloqueo de pesos inferiores al límite biológico mínimo (1 kg)")
-        void testPesoMinimoImposible(double weight) {
-            double height = 170.0;
-            
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(weight, height));
+        void testPesoMinimoImposible(float weight) {
+            Person patient = new Patient(weight, 1.70f, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(patient));
         }
 
         @ParameterizedTest(name = "Peso máximo inválido: {0} kg")
-        @ValueSource(doubles = {700.1, 1000.0, 5000.0})
+        @ValueSource(floats = {700.1f, 1000.0f, 5000.0f})
         @DisplayName("Bloqueo de pesos superiores al límite biológico máximo (700 kg)")
-        void testPesoMaximoImposible(double weight) {
-            double height = 170.0;
-            
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(weight, height));
+        void testPesoMaximoImposible(float weight) {
+            Person patient = new Patient(weight, 1.70f, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(patient));
         }
 
         @ParameterizedTest(name = "Altura mínima inválida: {0} m")
-        @ValueSource(doubles = {-0.50, 0.0, 0.29})
-        @DisplayName("Bloqueo de alturas inferiores al límite biológico mínimo (30 m)")
-        void testAlturaMinimaImposible(double height) {
-            double weight = 70.0;
-            
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(weight, height));
+        @ValueSource(floats = {-0.50f, 0.0f, 0.29f})
+        @DisplayName("Bloqueo de alturas inferiores al límite biológico mínimo (0.30 m)")
+        void testAlturaMinimaImposible(float height) {
+            Person patient = new Patient(70.0f, height, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(patient));
         }
 
         @ParameterizedTest(name = "Altura máxima inválida: {0} m")
-        @ValueSource(doubles = {3.01, 3.50, 5.00})
-        @DisplayName("Bloqueo de alturas superiores al límite biológico máximo (300 m)")
-        void testAlturaMaximoImposible(double height) {
-            double weight = 70.0;
-            
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmi(weight, height));
+        @ValueSource(floats = {3.01f, 3.50f, 5.00f})
+        @DisplayName("Bloqueo de alturas superiores al límite biológico máximo (3.00 m)")
+        void testAlturaMaximoImposible(float height) {
+            Person patient = new Patient(70.0f, height, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bodyMassIndex(patient));
         }
     }
 
-	@Nested
+    @Nested
     @DisplayName("Clasificación básica a partir del BMI")
     class BMIClassificationTests {
 
         @ParameterizedTest(name = "BMI {0} debe ser clasificado como {1}")
         @CsvSource({
-            "15.0, Severe Thinness",
-            "16.5, Moderate Thinness",
-            "18.0, Mild Thinness",
-            "22.0, Normal",
-            "27.0, Overweight",
-            "32.0, Obese Class I",
-            "37.0, Obese Class II",
-            "45.0, Obese Class III"
+            "15.0, SEVERE_THINNESS",
+            "16.5, MODERATE_THINNESS",
+            "18.0, MILD_THINNESS",
+            "22.0, NORMAL",
+            "27.0, OVERWEIGHT",
+            "32.0, OBESE_CLASS_I",
+            "37.0, OBESE_CLASS_II",
+            "45.0, OBESE_CLASS_III"
         })
         @DisplayName("Clasificación de las 8 categorías de BMI")
-        void testBmiClassificationCompleta(double bmi, String expected) throws InvalidHealthDataException {
-            String result = healthCalc.bmiClassification(bmi);
-
+        void testBmiClassificationCompleta(float bmi, BMICategory expected) throws InvalidHealthDataException {
+            Person patient = new Patient(bmi, 1.0f, Gender.MALE, 30);
+            BMICategory result = healthCalc.category(patient);
             assertEquals(expected, result);
         }
 
         @ParameterizedTest(name = "BMI mínimo inválido: {0}")
-        @ValueSource(doubles = {-50.0, -1.0, -0.01})
+        @ValueSource(floats = {-50.0f, -1.0f, -0.01f})
         @DisplayName("Bloqueo de valores de BMI negativos (Error de entrada)")
-        void testBmiClassificationMinimoImposible(double bmi) {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmiClassification(bmi));
+        void testBmiClassificationMinimoImposible(float bmi) {
+            Person patient = new Patient(bmi, 1.0f, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.category(patient));
         }
 
         @ParameterizedTest(name = "BMI máximo extremo: {0}")
-        @ValueSource(doubles = {150.1, 200.0, 500.0})
+        @ValueSource(floats = {150.1f, 200.0f, 500.0f})
         @DisplayName("Bloqueo de valores de BMI superiores al límite humano razonable (150)")
-        void testBmiClassificationMaximoImposible(double bmi) {
-            assertThrows(InvalidHealthDataException.class, () -> healthCalc.bmiClassification(bmi));
+        void testBmiClassificationMaximoImposible(float bmi) {
+            Person patient = new Patient(bmi, 1.0f, Gender.MALE, 30);
+            assertThrows(InvalidHealthDataException.class, () -> healthCalc.category(patient));
         }
-
     }
-
 }

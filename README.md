@@ -330,3 +330,167 @@ Para cada categoría, probamos valores que están justo en el límite para asegu
 - Ejecutar los tests con informe de cobertura (previamente configurado en pom.xml): `mvn test`
 
 </details>
+
+## Especificación
+
+### Casos de uso
+
+![Diagrama de casos de uso](doc/Diagrama_casos_de_uso.png)
+
+* [Calcular TMB con ecuación de Harris-Benedict](doc/Caso_de_uso_Harris_Benedict.txt)
+* [Calcular PCI con fórmula de Lorentz](doc/Caso_de_uso_Lorentz.txt)
+* [Calcular IMC](doc/Caso_de_uso_IMC.txt)
+
+## Behaviour Driven Development (BDD)
+
+En esta sección se describen las pruebas de comportamiento realizadas utilizando Cucumber y Gherkin para las métricas de salud implementadas.
+
+### Cálculo del IMC (BMI)
+
+**Historia de Usuario:**
+> **Como** profesional de la salud, 
+> **quiero** calcular el IMC de un paciente, 
+> **para** evaluar su estado nutricional relacionando su peso y altura.
+
+**Escenarios probados**
+* **Cálculo correcto del IMC con valores válidos:** se comprueba que el cálculo matemático es exacto para diferentes combinaciones de peso y altura.
+* **Intento de cálculo del IMC con datos inválidos:** se verifica que el sistema se protege y lanza excepciones al introducir ceros o valores negativos.
+
+* **Casos límite:** Se comprueba el bloqueo de seguridad del sistema ante números biológicamente imposibles.
+
+[Ver archivo de especificación Gherkin (BMI_calculo.feature)](java-project-healthcalc/src/test/resources/healthcalc/BMI_calculo.feature)
+
+### Clasificación del IMC (BMI)
+
+**Historia de Usuario:**
+> **Como** profesional de la salud, 
+> **quiero** obtener la clasificación del IMC de un paciente, 
+> **para** determinar su categoría nutricional.
+
+**Escenarios probados**
+* **Clasificación correcta del estado nutricional basao en el IMC:** se verifica que el sistema devuelve la etiqueta de texto exacta para cada rango de valores calculado.
+* **Intento de clasificación con datos inválidos de IMC:** se comprueba el manejo de errores si se intenta clasificar un IMC negativo o excesivamente alto.
+
+[Ver archivo de especificación Gherkin (BMI_clasificacion.feature)](java-project-healthcalc/src/test/resources/healthcalc/BMI_clasificacion.feature)
+
+### Cálculo de la Tasa Metabólica Basal (TMB) con ecuación de Harris-Benedict
+
+**Historia de Usuario:**
+> **Como** profesional de la salud,
+> **quiero** calcular la tasa metabólica basal (TMB) de un paciente usando la ecuación de Harris-Benedict,
+> **para** obtener una estimación de la cantidad mínima de energía que necesita y poder planificar un tratamiento o incluso su dieta.
+
+**Escenarios probados:**
+* **Cálculo correcto de la TMB con valores válidos:** Se comprueba la exactitud de la ecuación de Harris-Benedict para hombres y mujeres con diferentes pesos, alturas y edades dentro de los parámetros normales.
+* **Intento de cálculo de la TMB con datos inválidos:** Se verifica que el sistema lanza la excepción correspondiente al introducir valores nulos, variables negativas o un género no válido.
+* **Casos límite:** Se comprueba el bloqueo de seguridad del sistema ante valores fuera de un límite razonable (pesos o alturas extremadamente bajos o altos, edades extremadamente altas).
+
+[Ver archivo de especificación Gherkin (harris_benedict.feature)](java-project-healthcalc/src/test/resources/healthcalc/harris_benedict.feature)
+
+### Cálculo del Peso Corporal Ideal (IBW) - con fórmula de Lorentz
+
+**Historia de Usuario:**
+> **Como** profesional de la salud,
+> **quiero** calcular el peso corporal ideal (IBW o PCI) de un paciente usando la fórmula de Lorentz,
+> **para** establecer un objetivo de peso saludable basado en su género y altura.
+
+**Escenarios probados:**
+* **Cálculo correcto del PCI con valores válidos:** Se comprueba la exactitud de la fórmula para hombres y mujeres con alturas estándar.
+* **Intento de cálculo con datos inválidos:** Se verifica que el sistema lanza una excepción ante géneros no reconocidos, alturas negativas o valores nulos.
+* **Casos límite:** Se comprueba el comportamiento ante alturas biológicamente imposibles (extremadamente bajas o altas).
+
+[Ver archivo de especificación Gherkin (IBW.feature)](java-project-healthcalc/src/test/resources/healthcalc/IBW.feature)
+
+
+## Interfaz gráfica de usuario (GUI)
+
+### Ejecución de la aplicación
+Para probar la calculadora sin necesidad de abrir el entorno de desarrollo:
+1. Localiza el archivo `HealthCalc_grupo03.jar` en la raíz de este repositorio.
+2. Descarga ese archivo y haz doble clic. Si tienes Java instalado, se ejecutará directamente.
+3. Si prefieres la consola, puedes usar el comando: `java -jar HealthCalc_grupo03.jar`
+
+<details>
+<summary><b>Vistas de la calculadora</b></summary>
+
+### Índice de masa corporal (BMI)
+![Captura del funcionamiento de la pestaña del BMI](doc/gui/captura_BMI_gui.png)
+
+---
+
+### Peso corporal ideal (IBW - Fórmula de Lorentz)
+![Captura del funcionamiento de la pestaña del IBW](doc/gui/captura_IBW_gui.png)
+
+---
+
+### Tasa metabólica basal (TMB - Harris-Benedict)
+![Captura del funcionamiento de la pestaña de la TMB](doc/gui/captura_TMB_gui.png)
+
+</details>
+
+## Práctica 6: Patrones de diseño
+
+### 1. Patrón Singleton 
+* **Problema:** Garantizar que la calculadora de salud no se instancie múltiples veces innecesariamente y comparta un único estado global.
+* **Solución:** Se ha modificado `HealthCalcImpl` ocultando su constructor (`private`) y añadiendo un método de acceso global estático `getInstance()`. De esta forma, tanto el entorno de consola como la interfaz gráfica consumen exactamente la misma instancia única.
+* **Diagrama UML:**
+  ![Diagrama UML - Singleton](design_patterns/01_Singleton_UML.png)
+
+### 2. Patrón Adapter 
+* **Problema:** Integrar nuestra calculadora con la interfaz externa `HealthHospital` suministrada por el hospital Costa del Sol, la cual utiliza una firma distinta (devuelve tuplas) y unidades incompatibles con nuestra calculadora (altura en metros y peso en gramos).
+* **Solución:** Se ha creado la clase `AdapterHospital` que implementa `HealthHospital`. Esta actúa como "traductora", recibiendo los metros y gramos del hospital, transformándolos internamente a centímetros y kilogramos para invocar a nuestra calculadora, y empaquetando el resultado en un objeto genérico `Tuple`.
+* **Diagrama UML:**
+  ![Diagrama UML - Adapter](design_patterns/02_Adapter_UML.png)
+
+### 3. Patrón Proxy 
+* **Problema:** Llevar un registro e historial de uso clínico de forma anónima capturando los datos introducidos por los pacientes y calculando medias globales a través de la interfaz `HealthStats`, sin alterar el código de la calculadora original ni del adaptador del hospital.
+* **Solución:** Se ha diseñado un proxy de registro (`ProxyHealthCalc`) que implementa simultáneamente `HealthCalc` y `HealthStats`. El proxy se coloca de manera intermedia mediante una relación de agregación, intercepta silenciosamente las llamadas a los métodos de cálculo para almacenar las variables en listas locales y, posteriormente, delega el cálculo real en la instancia original.
+* **Diagrama UML:**
+  ![Diagrama UML - Proxy](design_patterns/03_Proxy_UML.png)
+
+### 4. Doble Patrón Decorator
+* **Problema:** Añadir dinámicamente y de forma encadenada nuevas responsabilidades a la plataforma del hospital (`HealthHospital`), permitiendo disponer de versiones con conversiones de unidades americanas (pies y libras) y europeas, combinadas de forma flexible con mensajes personalizados bilingües (inglés y español).
+* **Solución:** Siguiendo el esquema UML final, se ha implementado una estructura de doble Decorator heredando secuencialmente de la interfaz del hospital:
+  * **Decoradores de Versión (`BaseDecoratorVersion`, `AmericanDecorator`, `EuropeanDecorator`):** Interceptan los datos en formatos como pies y libras, los convierten al sistema métrico correspondiente y los envían hacia abajo en la cadena.
+  * **Decoradores de Idioma (`BaseDecoratorIdioma`, `SpanishDecorator`, `EnglishDecorator`):** Extienden las funcionalidades de salida formateando y traduciendo las respuestas de clasificación al idioma seleccionado.
+* **Diagrama UML combinado final:**
+  ![Diagrama UML - Decorator Completo](design_patterns/04_Decorator_UML.png)
+
+## Práctica 7: Refactorings
+
+A continuación se detallan los 5 refactorings aplicados al proyecto para adaptar la arquitectura al nuevo diagrama y resolver diversos *bad smells*:
+
+### Refactoring 1. Sustitución de tipos primitivos 
+* (1) Bad smell: Primitive Obsession (obsesión por los primitivos).
+* (2) Refactoring: Replace Type Code with Enum.
+* (3) Categoría: Class refactoring.
+* (4) Descripción: Sustituimos los tipos primitivos que representaban el género y la clasificación (char y String) por enumerados (Gender y BMICategory).
+* (5) Cambios manuales: 2 archivos nuevos creados (Gender.java y BMICategory.java).
+
+### Refactoring 2. Encapsulación de datos del paciente
+* (1) Bad smell: Data Clumps/Long Parameter List (grupos de datos y lista larga de parámetros).
+* (2) Refactoring: Introduce Parameter Object/Extract Class.
+* (3) Categoría: Class refactoring.
+* (4) Descripción: Extraemos los datos del paciente (peso, altura, edad, género) a una nueva interfaz Person y su implementación Patient para encapsular la información.
+* (5) Cambios manuales: 2 archivos nuevos creados (Person.java y Patient.java).
+
+### Refactoring 3. Segregación de interfaces 
+* (1) Bad smell: Large Class/Fat Interface (interfaz gorda).
+* (2) Refactoring: Extract Interface.
+* (3) Categoría: Class refactoring.
+* (4) Descripción: Eliminamos la interfaz HealthCalc y la segregamos en tres interfaces independientes (BodyMassIndex, IdealBodyWeight y BasalMetabolicRate) para cumplir el Principio de Segregación de Interfaces (ISP).
+* (5) Cambios manuales: 4 archivos modificados (eliminada la interfaz HealthCalc y creadas las 3 nuevas interfaces).
+
+### Refactoring 4. Inyección de dependencias mediante objetos
+* (1) Bad smell: Long Parameter List (lista larga de parámetros).
+* (2) Refactoring: Preserve Whole Object.
+* (3) Categoría: Method refactoring.
+* (4) Descripción: Modificamos las firmas de los métodos en HealthCalcImpl y en todas las clases que los llaman para que reciban el objeto Person en lugar de los parámetros sueltos.
+* (5) Cambios manuales: Cambios manuales: 11 archivos modificados (HealthCalcImpl, los tres controladores del MVC, el proxy, el adapter, los tres archivos de tests y los dos main -consola e interfaz-).
+
+### Refactoring 5. Estandarización de nomenclatura
+* (1) Bad smell: Uncommunicative Name (nombres poco comunicativos).
+* (2) Refactoring: Rename Method.
+* (3) Categoría: Method refactoring.
+* (4) Descripción: Renombramos los métodos (ej. bmi a bodyMassIndex, harrisBenedict a basalMetabolicRate) para estandarizarlos y reflejar la nomenclatura correcta.
+* (5) Cambios manuales: 1 archivo modificado en sus firmas (HealthCalcImpl.java), además de las llamadas en los tests.
