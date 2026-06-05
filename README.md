@@ -455,8 +455,6 @@ Para probar la calculadora sin necesidad de abrir el entorno de desarrollo:
   * **Decoradores de Idioma (`BaseDecoratorIdioma`, `SpanishDecorator`, `EnglishDecorator`):** Extienden las funcionalidades de salida formateando y traduciendo las respuestas de clasificación al idioma seleccionado.
 * **Diagrama UML combinado final:**
   ![Diagrama UML - Decorator Completo](design_patterns/04_Decorator_UML.png)
-<<<<<<< HEAD
-=======
 
 ## Práctica 7: Refactorings
 
@@ -496,4 +494,3 @@ A continuación se detallan los 5 refactorings aplicados al proyecto para adapta
 * (3) Categoría: Method refactoring.
 * (4) Descripción: Renombramos los métodos (ej. bmi a bodyMassIndex, harrisBenedict a basalMetabolicRate) para estandarizarlos y reflejar la nomenclatura correcta.
 * (5) Cambios manuales: 1 archivo modificado en sus firmas (HealthCalcImpl.java), además de las llamadas en los tests.
->>>>>>> p7
