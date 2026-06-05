@@ -331,6 +331,7 @@ Para cada categoría, probamos valores que están justo en el límite para asegu
 
 </details>
 
+<<<<<<< HEAD
 ## Especificación
 
 ### Casos de uso
@@ -340,3 +341,64 @@ Para cada categoría, probamos valores que están justo en el límite para asegu
 * [Calcular TMB con ecuación de Harris-Benedict](doc/Caso_de_uso_Harris_Benedict.txt)
 * [Calcular PCI con fórmula de Lorentz](doc/Caso_de_uso_Lorentz.txt)
 * [Calcular IMC](doc/Caso_de_uso_IMC.txt)
+=======
+## Behaviour Driven Development (BDD)
+
+En esta sección se describen las pruebas de comportamiento realizadas utilizando Cucumber y Gherkin para las métricas de salud implementadas.
+
+### Cálculo del IMC (BMI)
+
+**Historia de Usuario:**
+> **Como** profesional de la salud, 
+> **quiero** calcular el IMC de un paciente, 
+> **para** evaluar su estado nutricional relacionando su peso y altura.
+
+**Escenarios probados**
+* **Cálculo correcto del IMC con valores válidos:** se comprueba que el cálculo matemático es exacto para diferentes combinaciones de peso y altura.
+* **Intento de cálculo del IMC con datos inválidos:** se verifica que el sistema se protege y lanza excepciones al introducir ceros o valores negativos.
+
+* **Casos límite:** Se comprueba el bloqueo de seguridad del sistema ante números biológicamente imposibles.
+
+[Ver archivo de especificación Gherkin (BMI_calculo.feature)](java-project-healthcalc/src/test/resources/healthcalc/BMI_calculo.feature)
+
+### Clasificación del IMC (BMI)
+
+**Historia de Usuario:**
+> **Como** profesional de la salud, 
+> **quiero** obtener la clasificación del IMC de un paciente, 
+> **para** determinar su categoría nutricional.
+
+**Escenarios probados**
+* **Clasificación correcta del estado nutricional basao en el IMC:** se verifica que el sistema devuelve la etiqueta de texto exacta para cada rango de valores calculado.
+* **Intento de clasificación con datos inválidos de IMC:** se comprueba el manejo de errores si se intenta clasificar un IMC negativo o excesivamente alto.
+
+[Ver archivo de especificación Gherkin (BMI_clasificacion.feature)](java-project-healthcalc/src/test/resources/healthcalc/BMI_clasificacion.feature)
+
+### Cálculo de la Tasa Metabólica Basal (TMB) con ecuación de Harris-Benedict
+
+**Historia de Usuario:**
+> **Como** profesional de la salud,
+> **quiero** calcular la tasa metabólica basal (TMB) de un paciente usando la ecuación de Harris-Benedict,
+> **para** obtener una estimación de la cantidad mínima de energía que necesita y poder planificar un tratamiento o incluso su dieta.
+
+**Escenarios probados:**
+* **Cálculo correcto de la TMB con valores válidos:** Se comprueba la exactitud de la ecuación de Harris-Benedict para hombres y mujeres con diferentes pesos, alturas y edades dentro de los parámetros normales.
+* **Intento de cálculo de la TMB con datos inválidos:** Se verifica que el sistema lanza la excepción correspondiente al introducir valores nulos, variables negativas o un género no válido.
+* **Casos límite:** Se comprueba el bloqueo de seguridad del sistema ante valores fuera de un límite razonable (pesos o alturas extremadamente bajos o altos, edades extremadamente altas).
+
+[Ver archivo de especificación Gherkin (harris_benedict.feature)](java-project-healthcalc/src/test/resources/healthcalc/harris_benedict.feature)
+
+### Cálculo del Peso Corporal Ideal (IBW) - con fórmula de Lorentz
+
+**Historia de Usuario:**
+> **Como** profesional de la salud,
+> **quiero** calcular el peso corporal ideal (IBW o PCI) de un paciente usando la fórmula de Lorentz,
+> **para** establecer un objetivo de peso saludable basado en su género y altura.
+
+**Escenarios probados:**
+* **Cálculo correcto del PCI con valores válidos:** Se comprueba la exactitud de la fórmula para hombres y mujeres con alturas estándar.
+* **Intento de cálculo con datos inválidos:** Se verifica que el sistema lanza una excepción ante géneros no reconocidos, alturas negativas o valores nulos.
+* **Casos límite:** Se comprueba el comportamiento ante alturas biológicamente imposibles (extremadamente bajas o altas).
+
+[Ver archivo de especificación Gherkin (IBW.feature)](java-project-healthcalc/src/test/resources/healthcalc/IBW.feature)
+>>>>>>> p3
