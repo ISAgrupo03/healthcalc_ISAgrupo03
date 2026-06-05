@@ -53,7 +53,7 @@ public class MainGUI {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		frmHealthcalc.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 
-		HealthCalc model = HealthCalcImpl.getInstance();
+		HealthCalcImpl model = HealthCalcImpl.getInstance();
 		ViewBMIImpl viewBMI = new ViewBMIImpl();
 		ViewHBImpl viewHB = new ViewHBImpl();
 		ViewIBWImpl viewIBW = new ViewIBWImpl();

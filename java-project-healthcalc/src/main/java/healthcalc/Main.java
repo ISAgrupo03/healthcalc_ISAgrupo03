@@ -5,37 +5,39 @@ import healthcalc.exceptions.InvalidHealthDataException;
 public class Main {
     public static void main(String[] args) {
         
-        HealthCalc baseCalc = HealthCalcImpl.getInstance();
-        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(baseCalc);
-        HealthCalc calculadora = objetoProxy;   
+        HealthCalcImpl calculadora = HealthCalcImpl.getInstance();
+        ProxyHealthCalc objetoProxy = new ProxyHealthCalc(calculadora, calculadora, calculadora);  
         HealthStats estadisticas = objetoProxy; 
         
         try {
-            double weight = 75.0; 
-            double height = 1.75; 
-            char gender = 'M'; 
+            float weight = 75.0f; 
+            float height = 1.75f; 
+            Gender gender = Gender.MALE; 
             int age = 30; 
             
             System.out.println("Data: Weight=" + weight +"kg, Height=" + height + "m, Gender=" + gender + ", Age=" + age + " years");
+
+            Person patient = new Patient(weight, height, gender, age);
             
-            double bmiValue = calculadora.bmi(weight, height);
+            float bmiValue = objetoProxy.bodyMassIndex(patient);
             System.out.println("BMI: " + String.format("%.2f", bmiValue));
             
-            String bmiClass = calculadora.bmiClassification(bmiValue);
+            BMICategory bmiClass = objetoProxy.category(patient);
             System.out.println("BMI classification: " + bmiClass);
             
-            double ibw = calculadora.idealBodyWeight(height*100, gender); 
+            float ibw = objetoProxy.idealBodyWeight(patient); 
             System.out.println("Ideal body weight (IBW): " + String.format("%.2f", ibw) + " kg");
             
-            double tmb = calculadora.harrisBenedict(weight, height*100, gender, age); 
+            float tmb = objetoProxy.basalMetabolicRate(patient); 
             System.out.println("Basal metabolic rate (Harris-Benedict): " + String.format("%.2f", tmb) + " kcal/day");
             
         } catch (InvalidHealthDataException e) {
             System.err.println("Error: " + e.getMessage());
         }
         
+        
         System.out.println("\nPATRÓN ADAPTER");
-        HealthHospital hospitalCalc = new AdapterHospital(calculadora);
+        HealthHospital hospitalCalc = new AdapterHospital(objetoProxy, objetoProxy);
         
         try {
             float alturaHospital = 1.75f;
@@ -94,5 +96,7 @@ public class Main {
         } catch (Exception e) {
             System.err.println("Error en los decoradores: " + e.getMessage());
         }
+
+        
     }
 }
