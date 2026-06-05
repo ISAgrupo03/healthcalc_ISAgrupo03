@@ -331,8 +331,6 @@ Para cada categoría, probamos valores que están justo en el límite para asegu
 
 </details>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 ## Especificación
 
 ### Casos de uso
@@ -342,7 +340,7 @@ Para cada categoría, probamos valores que están justo en el límite para asegu
 * [Calcular TMB con ecuación de Harris-Benedict](doc/Caso_de_uso_Harris_Benedict.txt)
 * [Calcular PCI con fórmula de Lorentz](doc/Caso_de_uso_Lorentz.txt)
 * [Calcular IMC](doc/Caso_de_uso_IMC.txt)
-=======
+
 ## Behaviour Driven Development (BDD)
 
 En esta sección se describen las pruebas de comportamiento realizadas utilizando Cucumber y Gherkin para las métricas de salud implementadas.
