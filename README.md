@@ -494,3 +494,9 @@ A continuación se detallan los 5 refactorings aplicados al proyecto para adapta
 * (3) Categoría: Method refactoring.
 * (4) Descripción: Renombramos los métodos (ej. bmi a bodyMassIndex, harrisBenedict a basalMetabolicRate) para estandarizarlos y reflejar la nomenclatura correcta.
 * (5) Cambios manuales: 1 archivo modificado en sus firmas (HealthCalcImpl.java), además de las llamadas en los tests.
+
+## Práctica 8: Nuevo Proyecto HealthCalc
+
+A continuación se muestra el tablero Kanban configurado en GitHub Projects:
+
+![Tablero Kanban de la Práctica 8](doc/captura_kanban.png)
